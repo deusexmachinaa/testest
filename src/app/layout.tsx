@@ -1,5 +1,9 @@
 import Link from "next/link";
 import "./globals.css";
+import { dir } from "i18next";
+import { detectLanguage } from "./i18n";
+import { Trans } from "react-i18next";
+import { languages } from "./i18n/settings";
 
 function Navigation() {
   return (
@@ -47,7 +51,7 @@ function Hero() {
     <div className="bg-gray-100 dark:bg-gray-900 py-4">
       <div className="container mx-auto px-3">
         <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white">
-          TestesT
+          TesTesT
         </h2>
       </div>
     </div>
@@ -68,14 +72,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const lng = detectLanguage();
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-1">
-        <Navigation />
-        <Hero />
-        <main>{children}</main>
+    <html lang={lng} dir={dir(lng)}>
+      <div className="flex flex-col min-h-screen">
+        <div className="flex-1">
+          <Navigation />
+          <Hero />
+          <main>{children}</main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </html>
   );
 }
