@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/i18n/index.js",
-    "src/app/i18n/index.js"
+    "src/app/i18n/index.js",
+    "src/app/404.js"
   ],
   "exclude": ["node_modules"]
 }
