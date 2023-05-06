@@ -24,7 +24,7 @@ export const MenuItems: MenuItem[] = [
   {
     title: "잡동사니",
     description: "잡동사니로 이동합니다.",
-    href: "/miscellaneous",
+    href: "/etc",
     image: "https://source.unsplash.com/1600x900/?etc",
   },
   // 필요한 만큼 메뉴 항목 추가
