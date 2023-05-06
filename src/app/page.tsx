@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -9,11 +8,11 @@ interface MenuItem {
   image: string;
 }
 
-const MainMenuItems: MenuItem[] = [
+export const MenuItems: MenuItem[] = [
   {
-    title: "심리테스트",
-    description: "심리테스트로 이동합니다.",
-    href: "/psychological-test",
+    title: "테스트들",
+    description: "심리테스트 및 여러 흥미로운 테스트들로 이동합니다.",
+    href: "/testest",
     image: "https://source.unsplash.com/1600x900/?test",
   },
   {
@@ -34,7 +33,7 @@ const MainMenuItems: MenuItem[] = [
 export default function Home() {
   return (
     <div className="flex justify-center flex-wrap gap-4 p-8">
-      {MainMenuItems.map((item, index) => (
+      {MenuItems.map((item, index) => (
         <Link
           key={index}
           href={item.href}
