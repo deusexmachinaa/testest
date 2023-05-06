@@ -2,6 +2,7 @@ import Link from "next/link";
 import "./globals.css";
 import { MenuItems } from "./page";
 import Hero from "./components/hero";
+import Footer from "./components/Footer";
 // import { dir } from "i18next";
 // import { detectLanguage } from "./i18n";
 // import { Trans } from "react-i18next";
@@ -47,29 +48,20 @@ function Navigation() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="bg-gray-800 text-white text-center py-4">
-      <p> 문의: testest.help@gmail.com</p>
-      <p>&copy; {new Date().getFullYear()} Taehun.</p>
-    </footer>
-  );
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <body>
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-1">
-          <Navigation />
-          <main>{children}</main>
+    <html>
+      <body>
+        <Navigation />
+        <div className="flex flex-col min-h-screen">
+          <div className="flex-1">{children}</div>
         </div>
-      </div>
+      </body>
       <Footer />
-    </body>
+    </html>
   );
 }
