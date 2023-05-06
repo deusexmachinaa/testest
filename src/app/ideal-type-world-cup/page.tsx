@@ -8,12 +8,5 @@ export default function IdealTypeWorldCup() {
     </div>
   );
 
-  return (
-    <div>
-      <Head>
-        <title>이상형월드컵</title>
-      </Head>
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 }

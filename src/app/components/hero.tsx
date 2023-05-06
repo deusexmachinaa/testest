@@ -1,4 +1,3 @@
-"use client";
 export default function Hero() {
   return (
     <div className="bg-gray-100 dark:bg-gray-900 py-4">

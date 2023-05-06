@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <body>
       <div className="flex flex-col min-h-screen">
         <div className="flex-1">
           <Navigation />
@@ -70,6 +70,6 @@ export default function RootLayout({
         </div>
       </div>
       <Footer />
-    </>
+    </body>
   );
 }

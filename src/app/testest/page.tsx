@@ -1,14 +1,13 @@
-import Head from "next/head";
 import Link from "next/link";
 
-export interface TestItem {
+interface TestItem {
   title: string;
   description: string;
   href: string;
   image: string;
 }
 
-export const TestItems: TestItem[] = [
+const TestItems: TestItem[] = [
   {
     title: "반응속도 테스트",
     description: "반응속도를 테스트 해보세요!",
@@ -41,12 +40,5 @@ export default function TesTesT() {
     </div>
   );
 
-  return (
-    <div>
-      <Head>
-        <title>심리테스트</title>
-      </Head>
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 }
