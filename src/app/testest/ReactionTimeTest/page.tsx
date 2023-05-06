@@ -38,7 +38,7 @@ export default function ReactionTest() {
         playBeep();
         setMessage("지금 클릭하세요!");
         startTime.current = performance.now();
-      }, Math.floor(Math.random() * 1000) + 2000);
+      }, Math.floor(Math.random() * 2000) + 1000);
 
       return () => {
         clearTimeout(timerId);
