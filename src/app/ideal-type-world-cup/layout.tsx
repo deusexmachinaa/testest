@@ -8,7 +8,7 @@ export default function Hero({ children }: { children: React.ReactNode }) {
           </h2>
         </div>
       </div>
-      {children}
+      <div>{children}</div>
     </>
   );
 }
