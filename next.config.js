@@ -3,14 +3,14 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: "/versus/:path*",
-        destination: "/versus/:path*/result",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/versus/:path*",
+  //       destination: "/versus/:path*/result",
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;
