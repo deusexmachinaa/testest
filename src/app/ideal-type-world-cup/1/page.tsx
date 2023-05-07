@@ -1,4 +1,7 @@
-import FoodGame, { Candidate } from "./gameComponent";
+"use client";
+
+import { useState } from "react";
+import GameComponent from "./gameComponent";
 
 const candidates11 = [
   {
@@ -28,14 +31,36 @@ const candidates = [
   { id: 2, name: "후보자 2", imageUrl: "https://via.placeholder.com/150" },
   { id: 3, name: "후보자 3", imageUrl: "https://via.placeholder.com/150" },
   { id: 4, name: "후보자 4", imageUrl: "https://via.placeholder.com/150" },
+  // ... 추가 후보자
 ];
 
-const App: React.FC = () => {
+const HomePage: React.FC = () => {
+  const [numOfRounds, setNumOfRounds] = useState<number>(32);
+
+  const handleNumOfRoundsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setNumOfRounds(parseInt(e.target.value));
+  };
+
   return (
-    <div>
-      <FoodGame candidates={candidates} />
+    <div className="container mx-auto">
+      <div className="mx-4">
+        <label htmlFor="numOfRounds">강전 선택: </label>
+        <select
+          name="numOfRounds"
+          value={numOfRounds}
+          onChange={handleNumOfRoundsChange}
+        >
+          <option value={2}>2강전</option>
+          <option value={4}>4강전</option>
+          <option value={8}>8강전</option>
+          <option value={16}>16강전</option>
+          <option value={32}>32강전</option>
+          {/* 원하는 강전 추가 */}
+        </select>
+      </div>
+      <GameComponent candidates={candidates} numOfRounds={numOfRounds} />
     </div>
   );
 };
 
-export default App;
+export default HomePage;

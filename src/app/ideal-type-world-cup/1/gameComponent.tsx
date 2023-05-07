@@ -1,85 +1,131 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
 
-export interface Candidate {
+import React, { useRef, useState } from "react";
+
+interface Candidate {
   id: number;
   name: string;
   imageUrl: string;
 }
 
-export interface GameComponentProps {
+interface GameComponentProps {
   candidates: Candidate[];
+  numOfRounds: number;
 }
 
-const GameComponent: React.FC<GameComponentProps> = ({ candidates }) => {
-  const [round, setRound] = useState(0);
-  const [currentPair, setCurrentPair] = useState<[Candidate, Candidate] | null>(
+interface CandidatePair {
+  first: Candidate;
+  second: Candidate;
+}
+
+const GameComponent: React.FC<GameComponentProps> = ({
+  candidates,
+  numOfRounds,
+}) => {
+  const [currentRound, setCurrentRound] = useState(numOfRounds);
+  const [currentPair, setCurrentPair] = useState<CandidatePair | null>(null);
+  const [roundPairs, setRoundPairs] = useState<CandidatePair[]>([]);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [nextPairIndex, setNextPairIndex] = useState(0);
+  const winners = useRef([] as Candidate[]);
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
     null
   );
-  const [selectedCandidates, setSelectedCandidates] = useState<Candidate[]>([]);
+  const [showSelectedCandidate, setShowSelectedCandidate] = useState(false);
 
   const startGame = () => {
     if (candidates.length < 2) {
       alert("최소 2명의 후보자가 필요합니다.");
       return;
     }
-    setRound(1);
-    setCurrentPair([candidates[0], candidates[1]]);
+    if (numOfRounds > candidates.length) {
+      alert(`최대 ${candidates.length} 강전까지만 가능합니다.`);
+      return;
+    }
+    setGameStarted(true);
+    setCurrentRound(numOfRounds);
+
+    const shuffledCandidates = shuffleArray(candidates.slice(0, numOfRounds));
+    const initialPairs = createPairs(shuffledCandidates);
+    setRoundPairs(initialPairs);
+    setCurrentPair(initialPairs[0]);
+  };
+
+  const shuffleArray = (array: Candidate[]): Candidate[] => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+
+  const createPairs = (items: Candidate[]): CandidatePair[] => {
+    const pairs = [];
+    for (let i = 0; i < items.length; i += 2) {
+      pairs.push({ first: items[i], second: items[i + 1] });
+    }
+    return pairs;
   };
 
   const handleSelection = (selected: Candidate) => {
-    setSelectedCandidates([...selectedCandidates, selected]);
+    // 다음 라운드로 진출한 후보를 저장
+    winners.current.push(selected);
 
-    if (selectedCandidates.length + 1 === candidates.length) {
-      if (candidates.length === 2) {
+    setNextPairIndex((nextPairIndex) => nextPairIndex + 1);
+
+    if (nextPairIndex < roundPairs.length - 1) {
+      //처음엔 handleSelection이 실행되지 않아서 nextPairIndex를 +1 해줘야함.
+      setCurrentPair(roundPairs[nextPairIndex + 1]);
+    } else {
+      // 다음 라운드로 이동
+      if (roundPairs.length < 2) {
         // 최종 결과 출력
         console.log("이상형 월드컵 결과:", selected);
-      } else {
-        // 다음 라운드로
-        setRound(round + 1);
-        setSelectedCandidates([]);
+        setGameStarted(false);
+        setCurrentPair(null);
+        winners.current = [] as Candidate[];
+        return;
       }
-      setCurrentPair(null);
-      return;
+      setNextPairIndex(0);
+      setCurrentRound((currentRound) => currentRound / 2);
+      const nextRoundPairs = createPairs(winners.current);
+      setRoundPairs(nextRoundPairs);
+      setCurrentPair(nextRoundPairs[0]);
+      console.log("다음 라운드시작");
     }
-
-    const nextPairIndex = selectedCandidates.length + 1;
-    setCurrentPair([candidates[nextPairIndex], candidates[nextPairIndex + 1]]);
   };
 
   return (
-    <div className="container mx-auto">
-      {round === 0 ? (
-        <div className="flex justify-center flex-wrap gap-4 p-8">
+    <div className="container mx-auto px-4 py-8">
+      {!gameStarted ? (
+        <>
+          <li>{candidates.length}명의 후보가 있습니다.</li>
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded"
+            className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             onClick={startGame}
           >
             이상형 월드컵 시작하기
           </button>
-        </div>
+        </>
       ) : (
         <>
           <h1 className="text-center text-2xl font-semibold mb-4">
-            Round {round}
+            {currentRound === 2 ? "결승" : currentRound + " 강"}
           </h1>
           {currentPair && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {currentPair.map((candidate) => (
-                <div
-                  key={candidate.id}
-                  className="border border-gray-300 rounded shadow-md p-4 cursor-pointer transform hover:scale-105 transition-transform"
-                  onClick={() => handleSelection(candidate)}
-                >
-                  <img
-                    className="mx-auto mb-2"
-                    src={candidate.imageUrl}
-                    alt={candidate.name}
-                  />
-                  <h2 className="text-center">{candidate.name}</h2>
-                </div>
-              ))}
+              {([currentPair.first, currentPair.second] as Candidate[]).map(
+                (candidate: Candidate) => (
+                  <div
+                    key={candidate.id}
+                    className="border border-gray-300 rounded shadow-md p-4 cursor-pointer transform hover:scale-105 transition-transform"
+                    onClick={() => handleSelection(candidate)}
+                  >
+                    <img
+                      className="mx-auto mb-2"
+                      src={candidate?.imageUrl}
+                      alt={candidate?.name}
+                    />
+                    <h2 className="text-center">{candidate.name}</h2>
+                  </div>
+                )
+              )}
             </div>
           )}
         </>
@@ -87,4 +133,5 @@ const GameComponent: React.FC<GameComponentProps> = ({ candidates }) => {
     </div>
   );
 };
+
 export default GameComponent;
