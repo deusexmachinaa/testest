@@ -5,6 +5,7 @@ interface EtctItem {
   description: string;
   href: string;
   image: string;
+  target?: string;
 }
 
 const TestItems: EtctItem[] = [
@@ -13,6 +14,7 @@ const TestItems: EtctItem[] = [
     description: "ChatGPT가 오늘의 운세를 봐드려요!",
     href: "https://fortunegpt.cc",
     image: "https://source.unsplash.com/1600x900/?fortune",
+    target: "_blank",
   },
 ];
 
@@ -24,6 +26,7 @@ export default function Etc() {
           key={index}
           href={item.href}
           className="w-72 rounded-lg shadow-md p-6 bg-white hover:shadow-lg transition-shadow transform hover:-translate-y-1 cursor-pointer"
+          target={item.target}
         >
           <div
             className="h-48 bg-cover bg-center rounded-t-lg"
