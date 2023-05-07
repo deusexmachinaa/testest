@@ -10,8 +10,8 @@ interface VersusItem {
 const TestItems: VersusItem[] = [
   {
     title: "1",
-    description: "이상형월드컵 테스트(미완)",
-    href: "/ideal-type-world-cup/1",
+    description: "이상형월드컵 테스트(테스트)",
+    href: "/versus/1",
     image: "https://source.unsplash.com/1600x900/?versus",
   },
 ];

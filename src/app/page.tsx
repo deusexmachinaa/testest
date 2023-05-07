@@ -18,7 +18,7 @@ export const MenuItems: MenuItem[] = [
   {
     title: "이상형월드컵",
     description: "이상형월드컵으로 이동합니다.",
-    href: "/ideal-type-world-cup",
+    href: "/versus",
     image: "https://source.unsplash.com/1600x900/?versus",
   },
   {
