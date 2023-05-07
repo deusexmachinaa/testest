@@ -51,12 +51,14 @@ const GameComponent: React.FC<GameComponentProps> = ({ candidates }) => {
   return (
     <div className="container mx-auto">
       {round === 0 ? (
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-          onClick={startGame}
-        >
-          이상형 월드컵 시작하기
-        </button>
+        <div className="flex justify-center flex-wrap gap-4 p-8">
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={startGame}
+          >
+            이상형 월드컵 시작하기
+          </button>
+        </div>
       ) : (
         <>
           <h1 className="text-center text-2xl font-semibold mb-4">
