@@ -29,7 +29,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
   const [nextPairIndex, setNextPairIndex] = useState(0);
   const winners = useRef([] as Candidate[]);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
-    null
+    candidates[0]
   );
   const [showSelectedCandidate, setShowSelectedCandidate] = useState(false);
 
@@ -64,35 +64,72 @@ const GameComponent: React.FC<GameComponentProps> = ({
   };
 
   const handleSelection = (selected: Candidate) => {
-    // 다음 라운드로 진출한 후보를 저장
-    winners.current.push(selected);
+    // 선택한 후보를 저장하고 전체 화면에 표시
+    setSelectedCandidate(selected);
+    setShowSelectedCandidate(true);
 
-    setNextPairIndex((nextPairIndex) => nextPairIndex + 1);
+    // 1초 후에 원래 로직을 실행
+    setTimeout(() => {
+      // 전체 화면에서 선택한 후보를 숨김
+      setShowSelectedCandidate(false);
 
-    if (nextPairIndex < roundPairs.length - 1) {
-      //처음엔 handleSelection이 실행되지 않아서 nextPairIndex를 +1 해줘야함.
-      setCurrentPair(roundPairs[nextPairIndex + 1]);
-    } else {
-      // 다음 라운드로 이동
-      if (roundPairs.length < 2) {
-        // 최종 결과 출력
-        console.log("이상형 월드컵 결과:", selected);
-        setGameStarted(false);
-        setCurrentPair(null);
-        winners.current = [] as Candidate[];
-        return;
+      // 다음 라운드로 진출한 후보를 저장
+      winners.current.push(selected);
+      setNextPairIndex((nextPairIndex) => nextPairIndex + 1);
+
+      if (nextPairIndex < roundPairs.length - 1) {
+        // 처음엔 handleSelection이 실행되지 않아서 nextPairIndex를 +1 해줘야함.
+        setCurrentPair(roundPairs[nextPairIndex + 1]);
+      } else {
+        // 다음 라운드로 이동
+        if (roundPairs.length < 2) {
+          // 최종 결과 출력
+          console.log("이상형 월드컵 결과:", selected);
+          setGameStarted(false);
+          setCurrentPair(null);
+          winners.current = [] as Candidate[];
+          return;
+        }
+        setNextPairIndex(0);
+        setCurrentRound((currentRound) => currentRound / 2);
+        const nextRoundPairs = createPairs(winners.current);
+        setRoundPairs(nextRoundPairs);
+        setCurrentPair(nextRoundPairs[0]);
+        console.log("다음 라운드시작");
       }
-      setNextPairIndex(0);
-      setCurrentRound((currentRound) => currentRound / 2);
-      const nextRoundPairs = createPairs(winners.current);
-      setRoundPairs(nextRoundPairs);
-      setCurrentPair(nextRoundPairs[0]);
-      console.log("다음 라운드시작");
-    }
+    }, 2000);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* 선택한 후보를 화면 전체에 표시하는 컴포넌트 */}
+      {selectedCandidate && (
+        <div
+          className="fixed top-0 left-0 w-full h-full flex items-center justify-center transition-all duration-1000 ease-in"
+          style={{
+            zIndex: 10,
+            backgroundColor: showSelectedCandidate ? "black" : "transparent",
+            opacity: showSelectedCandidate ? 1 : 0,
+            pointerEvents: showSelectedCandidate ? "auto" : "none",
+          }}
+        >
+          <div
+            className="text-center transition-transform duration-2000 ease-in"
+            style={{
+              transform: showSelectedCandidate ? "scale(1)" : "scale(0.5)",
+            }}
+          >
+            <img
+              className="mx-auto mb-4 w-full h-96 object-cover object-center"
+              src={selectedCandidate?.imageUrl}
+              alt={selectedCandidate?.name}
+            />
+            <h2 className="text-4xl font-semibold text-gray-700">
+              {selectedCandidate.name}
+            </h2>
+          </div>
+        </div>
+      )}
       {!gameStarted ? (
         <>
           <li>{candidates.length}명의 후보가 있습니다.</li>

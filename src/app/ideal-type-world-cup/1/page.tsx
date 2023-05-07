@@ -44,11 +44,12 @@ const HomePage: React.FC = () => {
   return (
     <div className="container mx-auto">
       <div className="mx-4">
-        <label htmlFor="numOfRounds">강전 선택: </label>
+        <label htmlFor="numOfRounds">총 라운드 선택: </label>
         <select
           name="numOfRounds"
           value={numOfRounds}
           onChange={handleNumOfRoundsChange}
+          className=" text-gray-800"
         >
           <option value={2}>2강전</option>
           <option value={4}>4강전</option>
