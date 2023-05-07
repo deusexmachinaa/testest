@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
+import ResultPage from "./result/page";
 
-interface Candidate {
+export interface Candidate {
   id: number;
   name: string;
   imageUrl: string;
@@ -11,6 +13,7 @@ interface Candidate {
 interface GameComponentProps {
   candidates: Candidate[];
   numOfRounds: number;
+  onGameStart: () => void;
 }
 
 interface CandidatePair {
@@ -21,6 +24,7 @@ interface CandidatePair {
 const GameComponent: React.FC<GameComponentProps> = ({
   candidates,
   numOfRounds,
+  onGameStart,
 }) => {
   const [currentRound, setCurrentRound] = useState(numOfRounds);
   const [currentPair, setCurrentPair] = useState<CandidatePair | null>(null);
@@ -32,6 +36,8 @@ const GameComponent: React.FC<GameComponentProps> = ({
     candidates[0]
   );
   const [showSelectedCandidate, setShowSelectedCandidate] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const [winner, setWinner] = useState<Candidate>(candidates[0]);
 
   const startGame = () => {
     if (candidates.length < 2) {
@@ -42,6 +48,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       alert(`최대 ${candidates.length} 강전까지만 가능합니다.`);
       return;
     }
+    onGameStart();
     setGameStarted(true);
     setCurrentRound(numOfRounds);
 
@@ -62,6 +69,8 @@ const GameComponent: React.FC<GameComponentProps> = ({
     }
     return pairs;
   };
+
+  const router = useRouter();
 
   const handleSelection = (selected: Candidate) => {
     // 선택한 후보를 저장하고 전체 화면에 표시
@@ -88,6 +97,8 @@ const GameComponent: React.FC<GameComponentProps> = ({
           setGameStarted(false);
           setCurrentPair(null);
           winners.current = [] as Candidate[];
+          setWinner(selected);
+          setGameEnded(true);
           return;
         }
         setNextPairIndex(0);
@@ -130,7 +141,8 @@ const GameComponent: React.FC<GameComponentProps> = ({
           </div>
         </div>
       )}
-      {!gameStarted ? (
+      {gameEnded && <ResultPage winner={winner} />}
+      {!gameEnded && !gameStarted ? (
         <>
           <li>{candidates.length}명의 후보가 있습니다.</li>
           <button
@@ -145,7 +157,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
           <h1 className="text-center text-2xl font-semibold mb-4">
             {currentRound === 2 ? "결승" : currentRound + " 강"}
           </h1>
-          {currentPair && (
+          {!gameEnded && currentPair && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {([currentPair.first, currentPair.second] as Candidate[]).map(
                 (candidate: Candidate) => (
