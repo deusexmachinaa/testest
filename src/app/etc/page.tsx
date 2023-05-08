@@ -16,6 +16,12 @@ const TestItems: EtctItem[] = [
     image: "https://source.unsplash.com/1600x900/?fortune",
     target: "_blank",
   },
+  {
+    title: "개발일지",
+    description: "제 일기장이에요..",
+    href: "/etc/DevLog",
+    image: "https://source.unsplash.com/1600x900/?dev",
+  },
 ];
 
 export default function Etc() {
