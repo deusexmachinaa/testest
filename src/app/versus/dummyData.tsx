@@ -1,4 +1,6 @@
-export const candidates = [
+import { Candidate } from "./1/gameComponent";
+
+export const candidates: Candidate[] = [
   {
     id: "1",
     name: "에스파 카리나",

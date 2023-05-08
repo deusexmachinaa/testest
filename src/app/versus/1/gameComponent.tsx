@@ -5,7 +5,7 @@ import React, { useRef, useState } from "react";
 import ResultPage from "./resultpage";
 
 export interface Candidate {
-  id: number;
+  id: string;
   name: string;
   imageUrl: string;
 }
