@@ -141,7 +141,9 @@ const GameComponent: React.FC<GameComponentProps> = ({
           </div>
         </div>
       )}
+      {/* 게임이 끝났을 때 결과를 보여주는 컴포넌트 */}
       {gameEnded && <ResultPage winner={winner} />}
+      {/* 게임이 시작되지 않았을 때 보여주는 컴포넌트 */}
       {!gameEnded && !gameStarted ? (
         <>
           <li>{candidates.length}명의 후보가 있습니다.</li>
@@ -154,9 +156,11 @@ const GameComponent: React.FC<GameComponentProps> = ({
         </>
       ) : (
         <>
-          <h1 className="text-center text-2xl font-semibold mb-4">
-            {currentRound === 2 ? "결승" : currentRound + " 강"}
-          </h1>
+          {!gameEnded && (
+            <h1 className="text-center text-2xl font-semibold mb-4">
+              {currentRound === 2 ? "결승" : currentRound + " 강"}
+            </h1>
+          )}
           {!gameEnded && currentPair && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {([currentPair.first, currentPair.second] as Candidate[]).map(
