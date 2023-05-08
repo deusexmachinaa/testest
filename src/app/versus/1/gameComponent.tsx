@@ -159,7 +159,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       ) : (
         <>
           {!gameEnded && (
-            <h1 className="text-center text-2xl font-semibold mb-4">
+            <h1 className="text-center text-2xl font-semibold mb-4 text-gray-700">
               {currentRound === 2 ? "결승" : currentRound + " 강"}
             </h1>
           )}
@@ -177,7 +177,9 @@ const GameComponent: React.FC<GameComponentProps> = ({
                       src={candidate?.imageUrl}
                       alt={candidate?.name}
                     />
-                    <h2 className="text-center">{candidate.name}</h2>
+                    <h2 className="text-center text-gray-700">
+                      {candidate.name}
+                    </h2>
                   </div>
                 )
               )}
