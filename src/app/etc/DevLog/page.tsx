@@ -18,7 +18,7 @@ const DevLog: React.FC = () => {
   }, []);
 
   const handleAddLog = () => {
-    const newLog = prompt("새 개발 일지를 입력해주세요.");
+    const newLog = prompt("새 낙서를 입력해주세요.");
     if (newLog) {
       const updatedLogs = [...logs, newLog];
       setLogs(updatedLogs);
@@ -29,17 +29,17 @@ const DevLog: React.FC = () => {
   return (
     <div className="min-h-screen p-4 flex flex-col items-center justify-center bg-gray-100">
       <Head>
-        <title>개발 일지</title>
+        <title>낙서장</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="p-10 w-full max-w-3xl bg-white rounded-xl shadow-md flex flex-col items-center justify-center text-gray-800">
-        <h1 className="text-3xl mb-4 ">개발 일지</h1>
+        <h1 className="text-3xl mb-4 ">낙서장</h1>
         <button
           onClick={handleAddLog}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4 "
         >
-          새 일지 추가
+          새 낙서 추가
         </button>
         <ul className="list-none w-full px-4">
           {logs.map((log, index) => (

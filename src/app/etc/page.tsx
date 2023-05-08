@@ -17,8 +17,8 @@ const TestItems: EtctItem[] = [
     target: "_blank",
   },
   {
-    title: "개발일지",
-    description: "제 일기장이에요..",
+    title: "낙서장",
+    description: "그냥 낙서장이에요..",
     href: "/etc/DevLog",
     image: "https://source.unsplash.com/1600x900/?dev",
   },
