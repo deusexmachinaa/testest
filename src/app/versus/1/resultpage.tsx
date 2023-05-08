@@ -1,6 +1,6 @@
-import { Candidate } from "../gameComponent";
+import { Candidate } from "./gameComponent";
 
-export interface ResultPageProps {
+interface ResultPageProps {
   winner: Candidate;
 }
 

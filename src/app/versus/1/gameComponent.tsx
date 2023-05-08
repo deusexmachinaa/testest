@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
-import ResultPage from "./result/page";
+import ResultPage from "./resultpage";
 
 export interface Candidate {
   id: number;
@@ -145,15 +145,17 @@ const GameComponent: React.FC<GameComponentProps> = ({
       {gameEnded && <ResultPage winner={winner} />}
       {/* 게임이 시작되지 않았을 때 보여주는 컴포넌트 */}
       {!gameEnded && !gameStarted ? (
-        <>
-          <li>{candidates.length}명의 후보가 있습니다.</li>
+        <div className="flex flex-col items-center mt-8">
+          <ul className="mb-4 text-lg font-semibold text-gray-700">
+            <li>{candidates.length}명의 후보가 있습니다.</li>
+          </ul>
           <button
             className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             onClick={startGame}
           >
             이상형 월드컵 시작하기
           </button>
-        </>
+        </div>
       ) : (
         <>
           {!gameEnded && (
