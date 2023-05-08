@@ -19,8 +19,8 @@ const TestItems: EtctItem[] = [
   {
     title: "낙서장",
     description: "그냥 낙서장이에요..",
-    href: "/etc/DevLog",
-    image: "https://source.unsplash.com/1600x900/?dev",
+    href: "/etc/Doodle",
+    image: "https://source.unsplash.com/1600x900/?Doodle",
   },
 ];
 

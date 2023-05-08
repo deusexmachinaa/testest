@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const DevLog: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([]);
 
-  // 로컬 스토리지에서 개발 일지를 불러오는 함수
+  // 로컬 스토리지에서 낙서장을 불러오는 함수
   const loadLogsFromLocalStorage = () => {
     const storedLogs = localStorage.getItem("devlogs");
     if (storedLogs) {
