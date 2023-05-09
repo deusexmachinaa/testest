@@ -20,7 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
   "include": [
@@ -30,7 +31,8 @@
     ".next/types/**/*.ts",
     "src/app/i18n/index.js",
     "src/app/i18n/index.js",
-    "src/app/404.js"
-  ],
+    "src/app/404.js",
+    ".contentlayer/generated"
+, "src/app/DevLog/blog/[slug]/page"  ],
   "exclude": ["node_modules"]
 }
