@@ -2,10 +2,6 @@ import { Post } from 'contentlayer/generated';
 import DevlogPost from './DevLogPost';
 
 
-interface RecentPostsProps {
-  posts: Post[];
-}
-
 export default function DevLogPostList( { posts }: { posts: Post[]} ) {
   console.log(posts);
   return (
