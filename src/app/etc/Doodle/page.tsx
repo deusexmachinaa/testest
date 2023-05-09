@@ -2,7 +2,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-const DevLog: React.FC = () => {
+const Doodle: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([]);
 
   // 로컬 스토리지에서 낙서장을 불러오는 함수
@@ -17,6 +17,7 @@ const DevLog: React.FC = () => {
     loadLogsFromLocalStorage();
   }, []);
 
+  //추가
   const handleAddLog = () => {
     const newLog = prompt("새 낙서를 입력해주세요.");
     if (newLog) {
@@ -24,6 +25,13 @@ const DevLog: React.FC = () => {
       setLogs(updatedLogs);
       localStorage.setItem("devlogs", JSON.stringify(updatedLogs));
     }
+  };
+
+  //삭제
+  const handleDeleteLog = (indexToDelete: number) => {
+    const updatedLogs = logs.filter((_, index) => index !== indexToDelete);
+    setLogs(updatedLogs);
+    localStorage.setItem("devlogs", JSON.stringify(updatedLogs));
   };
 
   return (
@@ -42,15 +50,21 @@ const DevLog: React.FC = () => {
           새 낙서 추가
         </button>
         <ul className="list-none w-full px-4">
-          {logs.map((log, index) => (
-            <li key={index} className="mb-2">
-              {log}
-            </li>
-          ))}
-        </ul>
+    {logs.map((log, index) => (
+      <li key={index} className="mb-2 flex items-center flex-nowrap">
+        <div className="flex-grow mr-4 max-w-xl">{log}</div>
+        <button
+          onClick={() => handleDeleteLog(index)}
+          className="bg-red-500 text-white rounded-lg px-2 py-1 min-w-[48px]"
+        >
+          삭제
+        </button>
+      </li>
+    ))}
+  </ul>
       </main>
     </div>
   );
 };
 
-export default DevLog;
+export default Doodle;
