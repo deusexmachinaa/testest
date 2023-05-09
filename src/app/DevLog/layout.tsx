@@ -3,6 +3,7 @@ import DevLogHeader from "../../components/DevLogHeader"
 import DevLogFooter from "../../components/DevLogFooter"
 import { GetStaticProps } from "next";
 import { allPosts } from "contentlayer/generated";
+import Head from "next/head";
 
 interface LayoutProps {
   children: ReactNode;
@@ -38,22 +39,10 @@ const blockingSetInitialColorMode = `(function() {
   })()
   `;
 
-function Document() {
-  return (
-    <>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: blockingSetInitialColorMode,
-        }}
-      ></script>
-    </>
-  );
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Document />
       <DevLogHeader />
       <main className="transition duration-500 bg-white dark:bg-[#111111] text-black dark:text-white">
         <div className="max-w-screen-md flex flex-col px-10 m-auto">

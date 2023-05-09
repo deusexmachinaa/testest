@@ -4,10 +4,6 @@ import DevLogPostList from '@/components/DevLogPostList';
 import Selfie from '/public/images/Selfie.jpg'
 import { compareDesc } from 'date-fns';
 
-interface HomeProps {
-  posts: Post[];
-}
-
 export default function Home() {
   const posts = allPosts.sort((a, b) =>
   compareDesc(new Date(a.date), new Date(b.date))
@@ -17,7 +13,7 @@ export default function Home() {
       <section className="my-10">
         <h1 className="font-bold text-2xl sm:text-4xl font-mono">🧑🏻‍💻 Taehun</h1>
       </section>
-      <section className="flex justify-center gap-8 items-center flex-wrap">
+      <section className="flex justify-center gap-20 items-center flex-wrap">
         <Image
           src={Selfie}
           alt="profile"

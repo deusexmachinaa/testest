@@ -59,12 +59,15 @@ export default function ReactionTest() {
       const reactionTime = endTime.current - startTime.current;
       setDisplayResult(reactionTime);
       setStatus("record");
-      setCount(count + 1);
+      setCount((count) => count + 1);
+      if(count<4){
       setMessage(
         `${reactionTime.toFixed(2)} ms 걸렸습니다.\n클릭해서 다시 시작하세요.`
+      );}
+      else{
+      setMessage(
+        `${reactionTime.toFixed(2)} ms 걸렸습니다. 테스트가 끝났습니다.`
       );
-      if (count >= 4) {
-        setMessage(`테스트가 끝났습니다.`);
       }
       setResult((prevResult) => [...prevResult, reactionTime]);
     } else if (status === "record") {

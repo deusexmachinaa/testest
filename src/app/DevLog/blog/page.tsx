@@ -1,3 +1,4 @@
+"use client"
 import DevLogPostList from '@/components/DevLogPostList';
 import { compareDesc } from "date-fns";
 import { allPosts } from 'contentlayer/generated';
@@ -6,7 +7,7 @@ import { allPosts } from 'contentlayer/generated';
 export default function Blog() {
   const posts = allPosts.sort((a, b) =>
   compareDesc(new Date(a.date), new Date(b.date))
-);
+  );
   return (
     <>
       <section className="mt-12 mb-10">
