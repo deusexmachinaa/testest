@@ -10,7 +10,7 @@ import { versusTestItems } from "@/Data/versusTeestItem";
 //todo: candidates,TestItems 를 db에서 가져오기
 //candidates 를 TestItems랑 매칭하기
 
-export const generateStaticParams = async () => versusTestItems.map((item) => ({ id: item.index }))
+export const generateStaticParams = async () => versusTestItems.map((item) => ({ id: item.id }))
 
 
 const HomePage: React.FC = () => {

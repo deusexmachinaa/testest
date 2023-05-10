@@ -37,4 +37,7 @@ next-env.d.ts
 
 # Contentlayer
 .contentlayer
+
+# custom
 src/app/testestaa/*
+.env

@@ -7,7 +7,7 @@ export default function Etc() {
       {versusTestItems.slice().map((item, index) => (
         <Link
           key={index}
-          href={`/versus/${item.href}`}
+          href={`/versus/${item.id}`}
           className="w-72 rounded-lg shadow-md p-6 bg-white hover:shadow-lg transition-shadow transform hover:-translate-y-1 cursor-pointer"
         >
           <div className="h-64 flex relative">
