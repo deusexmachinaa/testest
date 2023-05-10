@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
-    "build": "next build && contentlayer build",
+    "build": "contentlayer build && next build ",
     "start": "next start",
     "lint": "next lint"
   },
