@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navigation title="" />
+      <Navigation title="" href="/" />
       <div className="flex justify-center flex-wrap gap-4 p-8">
         {MenuItems.map((item, index) => (
           <Link
