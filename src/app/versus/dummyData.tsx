@@ -1,4 +1,4 @@
-import { Candidate } from "./1/gameComponent";
+import { Candidate } from "./[id]/gameComponent";
 
 export const candidates: Candidate[] = [
   {
