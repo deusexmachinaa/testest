@@ -9,15 +9,13 @@ import logoDarkMode from "/public/logoDarkMode.png";
 import logoLightMode from "/public/logoLightMode.png";
 import testest_black from "/public/testest_black.png";
 import testest_white from "/public/testest_white.png";
-
-
-type Theme = null | "dark" | "light";
+import { useTheme } from "next-themes";
 
 export default function DevLogHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLDivElement>(null);
   const [onToggle, setOnToggle] = useState<boolean>(false);
-  const [theme, setTheme] = useState<Theme>(null);
+  const { theme, setTheme } = useTheme()
 
   // 테마를 전환하기 위해 사용했다.
   const handleTheme = () => {
@@ -27,6 +25,21 @@ export default function DevLogHeader() {
     window.localStorage.setItem("theme", newTheme);
     document.body.className = newTheme;
   };
+
+  useEffect(() => {
+    // 로컬 스토리지에서 테마 설정을 불러옵니다.
+    const storedTheme = window.localStorage.getItem("theme");
+    if (storedTheme) {
+      // 저장된 테마가 있다면, 상태와 body의 className을 업데이트합니다.
+      setTheme(storedTheme);
+      document.body.className = storedTheme;
+    } else {
+      // 저장된 테마가 없다면, 기본 테마를 사용합니다.
+      setTheme("light");
+      document.body.className = "light";
+      window.localStorage.setItem("theme", "light");
+    }
+  }, []);
 
   // 스크롤이 내려가면 헤더 하단에 그림자 속성을 주기 위해서 사용했다.
   const handleScroll = () => {
@@ -47,7 +60,7 @@ export default function DevLogHeader() {
   // 스크롤 이벤트와 테마를 적용하는 코드를 넣어준다.
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    setTheme(document.body.className as Theme);
+    setTheme(document.body.className);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
