@@ -1,4 +1,3 @@
-"use client"
 import { getMDXComponent, useMDXComponent } from 'next-contentlayer/hooks';
 import { compareDesc, format, parseISO } from 'date-fns'
 import Utterances from '@/components/Utterances';
