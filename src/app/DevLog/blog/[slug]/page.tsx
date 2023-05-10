@@ -1,3 +1,4 @@
+"use client"
 import { getMDXComponent, useMDXComponent } from 'next-contentlayer/hooks';
 import { compareDesc, format, parseISO } from 'date-fns'
 import Utterances from '@/components/Utterances';
@@ -27,7 +28,7 @@ const PostLayout = async({ params }: { params: { slug: string } }) => {
       </section>
         <MDXComponent />
       </div>
-      {/* <Utterances /> */}
+      <Utterances />
     </>
     );
   };
