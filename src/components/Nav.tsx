@@ -31,11 +31,12 @@ function MainMenuName() {
 
   export interface NavProps {
     title : string;
+    href : string;
   }
 
 
 
-export default function Navigation({ title }:NavProps) {
+export default function Navigation({ title,href }:NavProps) {
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLDivElement>(null);
   const [onToggle, setOnToggle] = useState<boolean>(false);
@@ -118,7 +119,7 @@ export default function Navigation({ title }:NavProps) {
             </div>
             <div className="w-full md:w-1/3 flex items-center justify-center">
             <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-            <Link href={"/testest"}>{title}</Link>
+            <Link href={href}>{title}</Link>
           </h2>
             </div>
           <div className="w-full md:w-1/3 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end">
