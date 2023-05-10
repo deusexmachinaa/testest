@@ -14,6 +14,12 @@ const TestItems: VersusItem[] = [
     href: "/versus/1",
     image: "https://source.unsplash.com/1600x900/?versus",
   },
+  {
+    title: "2",
+    description: "이상형월드컵 테스트(테스트)",
+    href: "/versus/2",
+    image: "https://i.imgur.com/su7vcgh.jpeg",
+  },
 ];
 
 export default function Etc() {
