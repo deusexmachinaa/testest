@@ -41,3 +41,4 @@ next-env.d.ts
 # custom
 src/app/testestaa/*
 .env
+.env.development
