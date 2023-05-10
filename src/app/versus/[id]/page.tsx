@@ -3,13 +3,14 @@
 import { useState } from "react";
 import GameComponent from "./gameComponent";
 import { candidates } from "../dummyData";
-import { TestItems } from "../page";
+import { versusTestItems } from "@/Data/versusTeestItem";
+
 
 
 //todo: candidates,TestItems 를 db에서 가져오기
 //candidates 를 TestItems랑 매칭하기
 
-export const generateStaticParams = async () => TestItems.map((item) => ({ id: item.index }))
+export const generateStaticParams = async () => versusTestItems.map((item) => ({ id: item.index }))
 
 
 const HomePage: React.FC = () => {

@@ -1,25 +1,10 @@
+import { testestTestItem } from "@/Data/testestTestItem";
 import Link from "next/link";
-
-interface TestItem {
-  title: string;
-  description: string;
-  href: string;
-  image: string;
-}
-
-const TestItems: TestItem[] = [
-  {
-    title: "반응속도 테스트",
-    description: "반응속도를 테스트 해보세요!",
-    href: "testest/ReactionTimeTest",
-    image: "https://source.unsplash.com/1600x900/?reaction",
-  },
-];
 
 export default function TesTesT() {
   const content = (
     <div className="flex justify-center flex-wrap gap-4 p-8">
-      {TestItems.map((item, index) => (
+      {testestTestItem.map((item, index) => (
         <Link
           key={index}
           href={item.href}

@@ -1,38 +1,10 @@
+import { versusTestItems } from "@/Data/versusTeestItem";
 import Link from "next/link";
-
-interface VersusItem {
-  index: number;
-  title: string;
-  description: string;
-  href: string;
-  image1: string;
-  image2: string;
-}
-
-export const TestItems: VersusItem[] = [
-  {
-    index: 1,
-    title: "여자연예인 월드컵",
-    description: "여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)여자연예인 월드컵 테스트(테스트)",
-    href: "1",
-    image1: "https://source.unsplash.com/1600x900/?versus",
-    image2: "https://source.unsplash.com/1600x900/?versus",
-  },
-  {
-    index: 2,
-    title: "2testsetstest",
-    description: "이상형월드컵 테스트(테스트)",
-    href: "2",
-    image1: "https://i.imgur.com/su7vcgh.jpeg",
-    image2: "https://source.unsplash.com/1600x900/?versus",
-  },
-  
-];
 
 export default function Etc() {
   const content = (
     <div className="flex justify-center flex-wrap gap-4 p-8">
-      {TestItems.slice().map((item, index) => (
+      {versusTestItems.slice().map((item, index) => (
         <Link
           key={index}
           href={`/versus/${item.href}`}
