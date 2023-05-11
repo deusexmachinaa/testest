@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
+    "@supabase/supabase-js": "^2.21.0",
     "@types/node": "18.16.0",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
@@ -35,6 +36,6 @@
     "shiki": "^0.14.2",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
-    "vercel": "^29.1.1"
+    "vercel": "^29.2.1"
   }
 }
