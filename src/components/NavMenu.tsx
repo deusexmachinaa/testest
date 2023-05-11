@@ -1,5 +1,5 @@
 import { MenuItems } from "@/Data/MainMenu";
-
+import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,16 +10,15 @@ interface MenuProps {
 }
 
 
-export default function Menu({ type, onClick }: MenuProps) {
-  const rawPathName = usePathname()
-  const pathName = "/"+rawPathName.split("/")[1]
-
+export default async function Menu({ type, onClick }: MenuProps) {
+  const pathName = usePathname()
   const defaultStyleString =
     "dark:text-white dark:hover:text-green-500 text-center transition duration-250 hover:scale-125 hover:text-green-500";
+
   return (
     <>
       {MenuItems.map((item) => {
-        const { title, href } = item;
+        const { title, href, id } = item;
         return (
           <Link
             href={href}
@@ -37,7 +36,7 @@ export default function Menu({ type, onClick }: MenuProps) {
               }
             }
             >
-              {href == pathName ? "✔" : ""}
+              {id == pathName ? "✔" : ""}
             {title}
           </Link>
         );

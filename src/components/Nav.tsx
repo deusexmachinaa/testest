@@ -7,8 +7,7 @@ import logoDarkMode from "/public/logoDarkMode.png";
 import logoLightMode from "/public/logoLightMode.png";
 import Image from "next/image";
 import { MenuItems } from "@/Data/MainMenu";
-import Menu from "./Menu";
-import ThemeSwitch from "./ThemeSwitch";
+import Menu from "./NavMenu";
 import { useTheme } from "next-themes";
 
 function MainMenuName() {
@@ -165,6 +164,7 @@ export default function Navigation({ title,href }:NavProps) {
             </div>
           <div className="w-full md:w-1/3 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end mt-2 pb-2">
             <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex mr-4">
+            {/* @ts-expect-error Async Server Component */}
               <Menu type="normal" />
             </div>
             </div>
@@ -175,6 +175,7 @@ export default function Navigation({ title,href }:NavProps) {
           ref={toggleRef}
           className="w-full h-screen absolute top-20 left-0 z-50 bg-gray-200 flex-col flex-nowrap p-5 flex hidden dark:bg-[#111111]"
         >
+          {/* @ts-expect-error Async Server Component */}
           <Menu type="toggle" onClick={handleToggle} />
         </div>
         </>

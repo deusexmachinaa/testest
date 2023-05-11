@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
+    "@supabase/auth-helpers-nextjs": "^0.6.1",
+    "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.21.0",
     "@types/node": "18.16.0",
     "@types/react": "^18.2.6",
@@ -31,6 +33,7 @@
     "prisma": "^4.14.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-i18next": "^12.2.2",
     "rehype-pretty-code": "^0.9.5",
     "shiki": "^0.14.2",

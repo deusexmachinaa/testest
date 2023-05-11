@@ -1,9 +1,8 @@
 import { ReactNode } from "react"
 import DevLogHeader from "../../components/DevLogHeader"
 import DevLogFooter from "../../components/DevLogFooter"
-import { GetStaticProps } from "next";
-import { allPosts } from "contentlayer/generated";
-import Head from "next/head";
+import { Toaster } from 'react-hot-toast';
+
 
 interface LayoutProps {
   children: ReactNode;
@@ -50,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
       </main>
       <DevLogFooter />
+      <Toaster />
     </>
   );
 }
