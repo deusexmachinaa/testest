@@ -1,4 +1,3 @@
-"use client"
 import DevLogPostList from '@/components/DevLogPostList';
 import { compareDesc } from "date-fns";
 import { allPosts } from 'contentlayer/generated';
