@@ -1,5 +1,5 @@
 import { MenuItems } from "@/Data/MainMenu";
-import { getPageStaticInfo } from "next/dist/build/analysis/get-page-static-info";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,6 +8,7 @@ interface MenuProps {
   type: "toggle" | "normal";
   onClick?: () => void;
 }
+
 
 export default function Menu({ type, onClick }: MenuProps) {
   const rawPathName = usePathname()

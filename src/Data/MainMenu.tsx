@@ -31,5 +31,4 @@ export const MenuItems: MenuItem[] = [
     href: "/DevLog",
     image: "https://source.unsplash.com/1600x900/?dev",
   },
-  // 필요한 만큼 메뉴 항목 추가
 ];
