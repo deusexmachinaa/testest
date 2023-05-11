@@ -5,7 +5,7 @@ export default function Hero({ children }: { children: React.ReactNode }) {
   return (
     <>
     <Navigation title="테스트들" href="/testest"/>
-    <div className="bg-gray-100 dark:bg-gray-700 py-4 flex flex-col min-h-screen">
+    <div className="dark:bg-gray-700 py-4 flex flex-col min-h-screen">
 {children}
 </div>
     </>

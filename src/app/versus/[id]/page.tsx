@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="container mx-auto p-4 min-h-screen flex flex-col items-center">
       {!isGameStarted && (
         <div className="w-full max-w-md mx-auto p-4 bg-white shadow-md rounded-lg mt-8">
           <div className="flex justify-between items-center">

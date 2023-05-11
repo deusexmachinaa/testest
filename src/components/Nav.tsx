@@ -95,10 +95,10 @@ export default function Navigation({ title,href }:NavProps) {
 
     return (
         <>
-      <header className="bg-white dark:bg-gray-900 shadow-md">
-        <div className="container mx-auto pr-6 py-4">
+      <header className="bg-white dark:bg-gray-800 shadow-md">
+        <div className="containerpr-6 pt-4 md:py-4">
         <div className="flex flex-col md:flex-row items-center justify-center w-full">
-  <div className="w-full md:w-1/3 flex items-center justify-center md:justify-start">
+  <div className="w-full md:w-1/3 flex items-center justify-between  md:justify-start">
             <Link href="/">
             {theme === "dark" ? (
               <Image
@@ -116,43 +116,67 @@ export default function Navigation({ title,href }:NavProps) {
               />
             )}
           </Link>
+          <div className="justify-between flex mr-4">
+            <div className="mr-4 mt-1">
+          <button type="button" onClick={handleTheme}>
+              {theme === "dark" ? (
+                <Image
+                src={logoDarkMode}
+                alt="dark mode"
+                width={30}
+                  height={30}
+                  />
+                  ) : (
+                    <Image
+                    src={logoLightMode}
+                    alt="light mode"
+                    width={30}
+                    height={30}
+                    />
+                    )}
+            </button>
+                    </div>
+          <button
+              type="button"
+              className="m-0 p-0 sm:hidden"
+              onClick={handleToggle}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7 transition duration-500 stroke-black dark:stroke-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+          </div>
             </div>
+            
             <div className="w-full md:w-1/3 flex items-center justify-center">
-            <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+            <h2 className="text-4xl font-bold text-gray-800 dark:text-white max-md:hidden">
             <Link href={href}>{title}</Link>
           </h2>
             </div>
-          <div className="w-full md:w-1/3 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end">
-            <button type="button" className="m-0 p-0 mb-2 mr-2 fixed top-4 right-4" onClick={handleTheme}>
-              {theme === "dark" ? (
-                <Image
-                  src={logoDarkMode}
-                  alt="dark mode"
-                  width={30}
-                  height={30}
-                />
-              ) : (
-                <Image
-                  src={logoLightMode}
-                  alt="light mode"
-                  width={30}
-                  height={30}
-                />
-              )}
-            </button>
-              <button
-              type="button"
-              className="m-0 p-0 mb-2 mr-2 sm:hidden"
-              onClick={handleToggle}
-            >
-            </button>
-            <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex">
+          <div className="w-full md:w-1/3 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end mt-2 pb-2">
+            <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex mr-4">
               <Menu type="normal" />
             </div>
             </div>
           </div>
         </div>
       </header>
+      <div
+          ref={toggleRef}
+          className="w-full h-screen absolute top-20 left-0 z-50 bg-gray-200 flex-col flex-nowrap p-5 flex hidden dark:bg-[#111111]"
+        >
+          <Menu type="toggle" onClick={handleToggle} />
+        </div>
         </>
     );
   }
