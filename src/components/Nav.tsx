@@ -3,16 +3,19 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import testest_black from "/public/testest_black.png";
 import testest_white from "/public/testest_white.png";
-import logoDarkMode from "/public/logoDarkMode.png";
+import logoDarkMode from "/public/logoDarkMode_white.png";
 import logoLightMode from "/public/logoLightMode.png";
 import Image from "next/image";
-import { MenuItems } from "@/Data/MainMenu";
+import {MenuItemsEmergency } from "@/Data/MainMenu";
 import Menu from "./NavMenu";
 import { useTheme } from "next-themes";
+import { supabase } from "@/supabaseClient";
 
 function MainMenuName() {
-    const menuItemsList = useMemo(() => {
-      return MenuItems.map((item, index) => (
+    const menuItemsList = useMemo(async() => {
+      const { data:MenuItems } = await supabase.from('MenuItems').select()
+      console.log(MenuItems)
+      return (MenuItems ?? MenuItemsEmergency).map((item, index) => (
         <li key={index}>
           <Link
             key={index}
@@ -40,9 +43,10 @@ export default function Navigation({ title,href }:NavProps) {
   const toggleRef = useRef<HTMLDivElement>(null);
   const [onToggle, setOnToggle] = useState<boolean>(false);
   const { theme, setTheme } = useTheme()
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
 
-  
   // 테마를 전환하기 위해 사용했다.
   const handleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -67,22 +71,25 @@ export default function Navigation({ title,href }:NavProps) {
     }
   }, []);
 
-  // 스크롤이 내려가면 헤더 하단에 그림자 속성을 주기 위해서 사용했다.
+  // 스크롤이 내려가면 헤더 하단에 그림자 속성 + nav 숨기기
   const handleScroll = () => {
-    if (window.scrollY > 0) {
-      headerRef.current?.classList.add("shadow-[0_5px_7px_0px_#ececec]");
-      return;
-    }
-    headerRef.current?.classList.remove("shadow-[0_5px_7px_0px_#ececec]");
+    const currentScrollTop = window.pageYOffset;
+    if (currentScrollTop < lastScrollTop) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    } 
+    setLastScrollTop(currentScrollTop);
   };
 
-  // 모달을 켜고 끄기 위해서 사용했다.
-  const handleToggle = () => {
-    if (onToggle) toggleRef.current?.classList.add("hidden");
-    else toggleRef.current?.classList.remove("hidden");
-    setOnToggle((prev) => !prev);
-  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
 
+  
   // 스크롤 이벤트와 테마를 적용하는 코드를 넣어준다.
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -91,10 +98,23 @@ export default function Navigation({ title,href }:NavProps) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
+  // 모달을 켜고 끄기 위해서 사용했다.
+  const handleToggle = () => {
+    if (onToggle) toggleRef.current?.classList.add("hidden");
+    else toggleRef.current?.classList.remove("hidden");
+    setOnToggle((prev) => !prev);
+  };
 
     return (
         <>
-      <header className="bg-white dark:bg-gray-800 shadow-md">
+        <header
+    ref={headerRef}
+    className={`sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200 bg-white/75 backdrop-blur-lg dark:bg-gray-800/75 dark:border-gray-700 transition-opacity duration-500 ${
+      isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+    }`}
+  >
+      {/* your existing code... */}
         <div className="containerpr-6 pt-4 md:py-4">
         <div className="flex flex-col md:flex-row items-center justify-center w-full">
   <div className="w-full md:w-1/3 flex items-center justify-between  md:justify-start">
@@ -164,7 +184,6 @@ export default function Navigation({ title,href }:NavProps) {
             </div>
           <div className="w-full md:w-1/3 flex flex-col md:flex-row items-center md:items-end justify-center md:justify-end mt-2 pb-2">
             <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex mr-4">
-            {/* @ts-expect-error Async Server Component */}
               <Menu type="normal" />
             </div>
             </div>
@@ -175,7 +194,6 @@ export default function Navigation({ title,href }:NavProps) {
           ref={toggleRef}
           className="w-full h-screen absolute top-20 left-0 z-50 bg-gray-200 flex-col flex-nowrap p-5 flex hidden dark:bg-[#111111]"
         >
-          {/* @ts-expect-error Async Server Component */}
           <Menu type="toggle" onClick={handleToggle} />
         </div>
         </>

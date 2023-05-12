@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameComponent from "./gameComponent";
 import { candidates } from "../dummyData";
 import { versusTestItems } from "@/Data/versusTeestItem";
@@ -14,6 +14,10 @@ export const generateStaticParams = async () => versusTestItems.map((item) => ({
 
 
 const HomePage: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
+
   const [numOfRounds, setNumOfRounds] = useState<number>(() => {
     let maxRound = 2 ** Math.floor(Math.log2(candidates.length));
     return maxRound;
@@ -71,7 +75,7 @@ const HomePage: React.FC = () => {
         candidates={candidates}
         numOfRounds={numOfRounds}
         onGameStart={handleGameStart}
-      />
+        />
     </div>
   );
 };

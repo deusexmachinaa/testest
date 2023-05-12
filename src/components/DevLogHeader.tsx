@@ -5,7 +5,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import Nav from "./DevLogNav";
-import logoDarkMode from "/public/logoDarkMode.png";
+import logoDarkMode from "/public/logoDarkMode_white.png";
 import logoLightMode from "/public/logoLightMode.png";
 import testest_black from "/public/testest_black.png";
 import testest_white from "/public/testest_white.png";

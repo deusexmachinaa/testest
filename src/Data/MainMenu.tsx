@@ -6,7 +6,7 @@ export interface MenuItem {
     image: string;
   }
   
-export const MenuItems: MenuItem[] = [
+export const MenuItemsEmergency: MenuItem[] = [
   {
     id:"testest",
     title: "테스트들",

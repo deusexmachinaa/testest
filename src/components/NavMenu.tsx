@@ -1,5 +1,5 @@
-import { MenuItems } from "@/Data/MainMenu";
-import { supabase } from "@/lib/supabaseClient";
+import { MenuItemsEmergency } from "@/Data/MainMenu";
+import { supabase } from "@/supabaseClient";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,15 +9,32 @@ interface MenuProps {
   onClick?: () => void;
 }
 
+// type datas = {
+//   description: string;
+//   href: string;
+//   id: string;
+//   image: string;
+//   indesx: number;
+//   title: string;
+// }
 
-export default async function Menu({ type, onClick }: MenuProps) {
-  const pathName = usePathname()
+// type MenuItem = {
+//   description: string;
+//   href: string;
+//   id: string;
+//   image: string;
+//   indesx: number;
+//   title: string;
+// }
+
+export default function Menu({ type, onClick }: MenuProps) {
+  const rawPathName = usePathname()
+  const pathName = rawPathName.split("/")[1]
   const defaultStyleString =
-    "dark:text-white dark:hover:text-green-500 text-center transition duration-250 hover:scale-125 hover:text-green-500";
-
+    "dark:text-white dark:hover:text-green-500 text-center transition duration-250 hover:scale-125 hover:text-green-500 min-w-fit";
   return (
     <>
-      {MenuItems.map((item) => {
+      {(MenuItemsEmergency).map((item) => {
         const { title, href, id } = item;
         return (
           <Link

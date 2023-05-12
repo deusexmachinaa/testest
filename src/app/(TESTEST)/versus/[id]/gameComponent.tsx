@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import ResultPage from "./resultpage";
 
@@ -56,6 +55,10 @@ const GameComponent: React.FC<GameComponentProps> = ({
     const initialPairs = createPairs(shuffledCandidates);
     setRoundPairs(initialPairs);
     setCurrentPair(initialPairs[0]);
+    setTimeout(() => {
+      window.scrollTo(window.innerHeight / 2, window.innerHeight);
+    }, 0);
+
   };
 
   const shuffleArray = (array: Candidate[]): Candidate[] => {
@@ -69,8 +72,6 @@ const GameComponent: React.FC<GameComponentProps> = ({
     }
     return pairs;
   };
-
-  const router = useRouter();
 
   const handleSelection = (selected: Candidate) => {
     // 선택한 후보를 저장하고 전체 화면에 표시
@@ -112,7 +113,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div  className="container mx-auto px-4 py-8">
       {/* 선택한 후보를 화면 전체에 표시하는 컴포넌트 */}
       {selectedCandidate && (
         <div
@@ -146,7 +147,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       {/* 게임이 시작되지 않았을 때 보여주는 컴포넌트 */}
       {!gameEnded && !gameStarted ? (
         <div className="flex flex-col items-center mt-8">
-          <ul className="mb-4 text-lg font-semibold text-gray-700">
+          <ul className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
             <li>{candidates.length}명의 후보가 있습니다.</li>
           </ul>
           <button

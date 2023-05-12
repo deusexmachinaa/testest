@@ -1,5 +1,5 @@
-"use client"
-import { MenuItems } from "@/Data/MainMenu";
+import { MenuItemsEmergency } from "@/Data/MainMenu";
+import Footer from "@/components/Footer";
 import Navigation from "@/components/Nav";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ export default function Home() {
     <Navigation title="" href="/" />
     <div className="dark:bg-gray-700 py-4 flex flex-col min-h-screen">
       <div className="flex justify-center flex-wrap gap-4 p-8">
-        {MenuItems.map((item, index) => (
+        {MenuItemsEmergency.map((item, index) => (
           <Link
           key={index}
           href={item.href}
@@ -30,6 +30,7 @@ export default function Home() {
         ))}
       </div>
     </div>
+    <Footer />
         </>
   );
 }

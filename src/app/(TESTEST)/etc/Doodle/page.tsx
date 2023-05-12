@@ -35,7 +35,7 @@ const Doodle: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 flex flex-col items-center justify-center bg-gray-100">
+    <div className="min-h-screen p-4 flex flex-col items-center justify-center ">
       <Head>
         <title>낙서장</title>
         <link rel="icon" href="/favicon.ico" />
