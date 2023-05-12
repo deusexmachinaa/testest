@@ -7,13 +7,15 @@
     "dev": "next dev",
     "build": "contentlayer build && next build ",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-types": "npx supabase gen types typescript --project-id djjfmgzuvyenioansubm --schema public > src/lib/database.types.ts"
   },
   "dependencies": {
-    "@opentelemetry/api": "^1.4.1",
     "@supabase/auth-helpers-nextjs": "^0.6.1",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.21.0",
+    "@tanstack/react-query": "^4.29.5",
+    "@tanstack/react-query-devtools": "^4.29.6",
     "@types/node": "18.16.0",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
@@ -40,5 +42,8 @@
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "vercel": "^29.3.0"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.29.4"
   }
 }
