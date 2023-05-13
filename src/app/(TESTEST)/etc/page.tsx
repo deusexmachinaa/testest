@@ -1,49 +1,24 @@
-import Link from "next/link";
+import { supabase } from '@/supabaseClient';
+import Link from 'next/link';
 
-interface EtctItem {
-  title: string;
-  description: string;
-  href: string;
-  image: string;
-  target?: string;
-}
+export default async function Etc() {
+  const { data: EtctItems } = await supabase.from('EtctItems').select();
 
-const TestItems: EtctItem[] = [
-  {
-    title: "포춘GPT",
-    description: "ChatGPT가 오늘의 운세를 봐드려요!",
-    href: "https://fortunegpt.cc",
-    image: "https://source.unsplash.com/1600x900/?fortune",
-    target: "_blank",
-  },
-  {
-    title: "낙서장",
-    description: "그냥 낙서장이에요..",
-    href: "/etc/Doodle",
-    image: "https://source.unsplash.com/1600x900/?Doodle",
-  },
-];
-
-export default function Etc() {
   const content = (
     <div className="flex justify-center flex-wrap gap-4 p-8">
-      {TestItems.map((item, index) => (
+      {EtctItems?.map((item, index) => (
         <Link
-          key={index}
-          href={item.href}
+          key={item.index}
+          href={item.href ?? ''}
           className="w-72 rounded-lg shadow-md p-6 bg-white hover:shadow-lg transition-shadow transform hover:-translate-y-1 cursor-pointer"
-          target={item.target}
+          target={item.target ?? ''}
         >
           <div
             className="h-48 bg-cover bg-center rounded-t-lg"
             style={{ backgroundImage: `url(${item.image})` }}
           ></div>
-          <h2 className="text-xl text-gray-600 font-semibold mb-2 text-center">
-            {item.title}
-          </h2>
-          <p className="text-gray-600 text-sm text-center">
-            {item.description}
-          </p>
+          <h2 className="text-xl text-gray-600 font-semibold mb-2 text-center">{item.title}</h2>
+          <p className="text-gray-600 text-sm text-center">{item.description}</p>
         </Link>
       ))}
     </div>

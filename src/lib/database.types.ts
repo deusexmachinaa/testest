@@ -9,13 +9,39 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      EtctItems: {
+        Row: {
+          description: string | null
+          href: string | null
+          image: string | null
+          index: number
+          target: string | null
+          title: string | null
+        }
+        Insert: {
+          description?: string | null
+          href?: string | null
+          image?: string | null
+          index?: number
+          target?: string | null
+          title?: string | null
+        }
+        Update: {
+          description?: string | null
+          href?: string | null
+          image?: string | null
+          index?: number
+          target?: string | null
+          title?: string | null
+        }
+      }
       MenuItems: {
         Row: {
           description: string
           href: string
           id: string
           image: string
-          indesx: number
+          index: number
           title: string
         }
         Insert: {
@@ -23,7 +49,7 @@ export interface Database {
           href?: string
           id?: string
           image?: string
-          indesx: number
+          index?: number
           title?: string
         }
         Update: {
@@ -31,8 +57,31 @@ export interface Database {
           href?: string
           id?: string
           image?: string
-          indesx?: number
+          index?: number
           title?: string
+        }
+      }
+      TestItems: {
+        Row: {
+          Description: string | null
+          Href: string | null
+          Image: string | null
+          Index: number
+          Title: string | null
+        }
+        Insert: {
+          Description?: string | null
+          Href?: string | null
+          Image?: string | null
+          Index?: number
+          Title?: string | null
+        }
+        Update: {
+          Description?: string | null
+          Href?: string | null
+          Image?: string | null
+          Index?: number
+          Title?: string | null
         }
       }
     }

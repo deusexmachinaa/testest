@@ -1,5 +1,5 @@
 interface TestItem {
-  id?: string;
+  index?: number;
   title: string;
   description: string;
   href: string;
@@ -8,9 +8,10 @@ interface TestItem {
 
 export const testestTestItem: TestItem[] = [
   {
-    title: "반응속도 테스트",
-    description: "반응속도를 테스트 해보세요!",
-    href: "testest/ReactionTimeTest",
-    image: "https://source.unsplash.com/1600x900/?reaction",
+    index: 1,
+    title: '반응속도 테스트',
+    description: '반응속도를 테스트 해보세요!',
+    href: 'testest/ReactionTimeTest',
+    image: 'https://source.unsplash.com/1600x900/?reaction',
   },
 ];

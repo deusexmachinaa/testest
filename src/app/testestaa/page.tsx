@@ -1,17 +1,17 @@
-import { supabase } from '@/supabaseClient'
-import Link from 'next/link'
-
+import { supabase } from '@/supabaseClient';
+import Link from 'next/link';
+import { cache } from 'react';
 
 export default async function Posts() {
-  const { data: MenuItems } = await supabase.from('MenuItems').select()
+  const { data: MenuItems } = await supabase.from('MenuItems').select();
 
   if (!MenuItems) {
-    return <p>No posts found.</p>
+    return <p>No posts found.</p>;
   }
 
   return MenuItems.map((post) => (
     <p key={post.id}>
       <Link href={`/static/${post.id}`}>{post.title}</Link>
     </p>
-  ))
+  ));
 }
