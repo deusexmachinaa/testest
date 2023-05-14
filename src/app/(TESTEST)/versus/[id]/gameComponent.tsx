@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import React, { useRef, useState } from "react";
-import ResultPage from "./resultpage";
+import React, { useEffect, useRef, useState } from 'react';
+import ResultPage from './resultpage';
+import useCandidates from '@/app/Hooks/useCandidates';
 
 export interface Candidate {
-  id: string;
-  name: string;
+  id: number;
   imageUrl: string;
+  name: string;
+  versusItemId: number;
+  rank: number | null;
 }
 
 interface GameComponentProps {
-  candidates: Candidate[];
   numOfRounds: number;
   onGameStart: () => void;
 }
@@ -20,11 +22,11 @@ interface CandidatePair {
   second: Candidate;
 }
 
-const GameComponent: React.FC<GameComponentProps> = ({
-  candidates,
-  numOfRounds,
-  onGameStart,
-}) => {
+const GameComponent: React.FC<GameComponentProps> = ({ numOfRounds, onGameStart }) => {
+  const { candidates, isLoading, isError } = useCandidates();
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
   const [currentRound, setCurrentRound] = useState(numOfRounds);
   const [currentPair, setCurrentPair] = useState<CandidatePair | null>(null);
   const [roundPairs, setRoundPairs] = useState<CandidatePair[]>([]);
@@ -32,33 +34,32 @@ const GameComponent: React.FC<GameComponentProps> = ({
   const [nextPairIndex, setNextPairIndex] = useState(0);
   const winners = useRef([] as Candidate[]);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
-    candidates[0]
+    candidates ? candidates[0] : null,
   );
   const [showSelectedCandidate, setShowSelectedCandidate] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
-  const [winner, setWinner] = useState<Candidate>(candidates[0]);
+  const [winner, setWinner] = useState<Candidate | null>(candidates ? candidates[0] : null);
 
   const startGame = () => {
-    if (candidates.length < 2) {
-      alert("최소 2명의 후보자가 필요합니다.");
+    if (candidates!.length < 2) {
+      alert('최소 2명의 후보자가 필요합니다.');
       return;
     }
-    if (numOfRounds > candidates.length) {
-      alert(`최대 ${candidates.length} 강전까지만 가능합니다.`);
+    if (numOfRounds > candidates!.length) {
+      alert(`최대 ${candidates!.length} 강전까지만 가능합니다.`);
       return;
     }
     onGameStart();
     setGameStarted(true);
     setCurrentRound(numOfRounds);
 
-    const shuffledCandidates = shuffleArray(candidates.slice(0, numOfRounds));
+    const shuffledCandidates = shuffleArray(candidates!.slice(0, numOfRounds));
     const initialPairs = createPairs(shuffledCandidates);
     setRoundPairs(initialPairs);
     setCurrentPair(initialPairs[0]);
     setTimeout(() => {
       window.scrollTo(window.innerHeight / 2, window.innerHeight);
     }, 0);
-
   };
 
   const shuffleArray = (array: Candidate[]): Candidate[] => {
@@ -94,7 +95,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
         // 다음 라운드로 이동
         if (roundPairs.length < 2) {
           // 최종 결과 출력
-          console.log("이상형 월드컵 결과:", selected);
+          console.log('이상형 월드컵 결과:', selected);
           setGameStarted(false);
           setCurrentPair(null);
           winners.current = [] as Candidate[];
@@ -107,38 +108,36 @@ const GameComponent: React.FC<GameComponentProps> = ({
         const nextRoundPairs = createPairs(winners.current);
         setRoundPairs(nextRoundPairs);
         setCurrentPair(nextRoundPairs[0]);
-        console.log("다음 라운드시작");
+        console.log('다음 라운드시작');
       }
     }, 2000);
   };
 
   return (
-    <div  className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       {/* 선택한 후보를 화면 전체에 표시하는 컴포넌트 */}
       {selectedCandidate && (
         <div
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center transition-all duration-1000 ease-in"
           style={{
             zIndex: 10,
-            backgroundColor: showSelectedCandidate ? "black" : "transparent",
+            backgroundColor: showSelectedCandidate ? 'black' : 'transparent',
             opacity: showSelectedCandidate ? 1 : 0,
-            pointerEvents: showSelectedCandidate ? "auto" : "none",
+            pointerEvents: showSelectedCandidate ? 'auto' : 'none',
           }}
         >
           <div
             className="text-center transition-transform duration-2000 ease-in"
             style={{
-              transform: showSelectedCandidate ? "scale(1)" : "scale(0.5)",
+              transform: showSelectedCandidate ? 'scale(1)' : 'scale(0.5)',
             }}
           >
             <img
               className="mx-auto mb-4 w-full h-96 object-cover object-center"
-              src={selectedCandidate?.imageUrl}
-              alt={selectedCandidate?.name}
+              src={selectedCandidate.imageUrl}
+              alt={selectedCandidate.name}
             />
-            <h2 className="text-4xl font-semibold text-gray-700">
-              {selectedCandidate.name}
-            </h2>
+            <h2 className="text-4xl font-semibold text-gray-700">{selectedCandidate.name}</h2>
           </div>
         </div>
       )}
@@ -148,7 +147,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       {!gameEnded && !gameStarted ? (
         <div className="flex flex-col items-center mt-8">
           <ul className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
-            <li>{candidates.length}명의 후보가 있습니다.</li>
+            <li>{candidates ? candidates.length : 0}명의 후보가 있습니다.</li>
           </ul>
           <button
             className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -161,7 +160,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
         <>
           {!gameEnded && (
             <h1 className="text-center text-2xl font-semibold mb-4 text-gray-700">
-              {currentRound === 2 ? "결승" : currentRound + " 강"}
+              {currentRound === 2 ? '결승' : currentRound + ' 강'}
             </h1>
           )}
           {!gameEnded && currentPair && (
@@ -173,16 +172,10 @@ const GameComponent: React.FC<GameComponentProps> = ({
                     className="border border-gray-300 rounded shadow-md p-4 cursor-pointer transform hover:scale-105 transition-transform"
                     onClick={() => handleSelection(candidate)}
                   >
-                    <img
-                      className="mx-auto mb-2"
-                      src={candidate?.imageUrl}
-                      alt={candidate?.name}
-                    />
-                    <h2 className="text-center text-gray-700">
-                      {candidate.name}
-                    </h2>
+                    <img className="mx-auto mb-2" src={candidate?.imageUrl} alt={candidate?.name} />
+                    <h2 className="text-center text-gray-700">{candidate.name}</h2>
                   </div>
-                )
+                ),
               )}
             </div>
           )}

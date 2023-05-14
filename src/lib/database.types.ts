@@ -9,6 +9,29 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      Candidates: {
+        Row: {
+          id: number
+          imageUrl: string
+          name: string
+          rank: number | null
+          versusItemId: number
+        }
+        Insert: {
+          id?: number
+          imageUrl: string
+          name: string
+          rank?: number | null
+          versusItemId?: number
+        }
+        Update: {
+          id?: number
+          imageUrl?: string
+          name?: string
+          rank?: number | null
+          versusItemId?: number
+        }
+      }
       EtctItems: {
         Row: {
           description: string | null
@@ -82,6 +105,32 @@ export interface Database {
           Image?: string | null
           Index?: number
           Title?: string | null
+        }
+      }
+      VersusItems: {
+        Row: {
+          description: string
+          href: number
+          id: number
+          image1: string
+          image2: string
+          title: string
+        }
+        Insert: {
+          description: string
+          href?: number
+          id: number
+          image1: string
+          image2?: string
+          title: string
+        }
+        Update: {
+          description?: string
+          href?: number
+          id?: number
+          image1?: string
+          image2?: string
+          title?: string
         }
       }
     }

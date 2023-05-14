@@ -1,25 +1,29 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import GameComponent from "./gameComponent";
-import { candidates } from "../dummyData";
-import { versusTestItems } from "@/Data/versusTeestItem";
-
-
+import { useEffect, useState } from 'react';
+import GameComponent from './gameComponent';
+// import { candidates } from '../../../../Data/dummyData';
+// import { versusTestItems } from '@/Data/versusTeestItem';
+import { supabase } from '@/supabaseClient';
+import useCandidates from '@/app/Hooks/useCandidates';
 
 //todo: candidates,TestItems 를 db에서 가져오기
 //candidates 를 TestItems랑 매칭하기
 
-export const generateStaticParams = async () => versusTestItems.map((item) => ({ id: item.id }))
+export const generateStaticParams = async () => {
+  const { data: VersusItems } = await supabase.from('VersusItems').select();
 
+  const { data: Candidates } = await supabase.from('Candidates').select();
+};
 
 const HomePage: React.FC = () => {
+  const { candidates, isLoading, isError } = useCandidates();
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
 
   const [numOfRounds, setNumOfRounds] = useState<number>(() => {
-    let maxRound = 2 ** Math.floor(Math.log2(candidates.length));
+    let maxRound = 2 ** Math.floor(Math.log2(candidates?.length ?? 0));
     return maxRound;
   });
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
@@ -28,11 +32,11 @@ const HomePage: React.FC = () => {
     const rounds = [];
     let round = 4;
 
-    while (round < candidates.length) {
+    while (round < (candidates?.length ?? 0)) {
       rounds.push(
         <option key={round} value={round}>
           {round}강전
-        </option>
+        </option>,
       );
       round *= 2;
     }
@@ -53,10 +57,7 @@ const HomePage: React.FC = () => {
       {!isGameStarted && (
         <div className="w-full max-w-md mx-auto p-4 bg-white shadow-md rounded-lg mt-8">
           <div className="flex justify-between items-center">
-            <label
-              htmlFor="numOfRounds"
-              className="text-lg font-semibold text-gray-800"
-            >
+            <label htmlFor="numOfRounds" className="text-lg font-semibold text-gray-800">
               총 라운드 선택:
             </label>
             <select
@@ -72,10 +73,10 @@ const HomePage: React.FC = () => {
         </div>
       )}
       <GameComponent
-        candidates={candidates}
+        // candidates={candidates}
         numOfRounds={numOfRounds}
         onGameStart={handleGameStart}
-        />
+      />
     </div>
   );
 };

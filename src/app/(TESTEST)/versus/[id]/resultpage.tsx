@@ -1,7 +1,7 @@
-import { Candidate } from "./gameComponent";
+import { Candidate } from './gameComponent';
 
 interface ResultPageProps {
-  winner: Candidate;
+  winner: Candidate | null;
 }
 
 export default function ResultPage({ winner }: ResultPageProps) {
@@ -11,11 +11,12 @@ export default function ResultPage({ winner }: ResultPageProps) {
       <div className="text-center">
         <img
           className="mx-auto mb-4 w-full h-96 object-cover object-center"
-          src={winner.imageUrl}
-          alt={winner.name}
+          src={winner?.imageUrl}
+          alt={winner?.name}
         />
-        <h2 className="text-4xl font-semibold text-gray-700">{winner.name}</h2>
+        <h2 className="text-4xl font-semibold text-gray-700">{winner?.name}</h2>
       </div>
+      <button onClick={() => window.location.reload()}>재시작</button>
     </div>
   );
 }
