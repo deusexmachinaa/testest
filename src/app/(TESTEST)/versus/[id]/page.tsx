@@ -50,7 +50,7 @@ const HomePage = () => {
     let round = 4;
 
     while (round < (candidates?.length ?? 0)) {
-      rounds.push(
+      rounds.unshift(
         <option key={round} value={round}>
           {round}강전
         </option>,

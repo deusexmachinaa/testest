@@ -5,6 +5,7 @@ import ResultPage from './resultpage';
 import useCandidates from '@/app/Hooks/useCandidates';
 import { usePathname } from 'next/navigation';
 import { supabase } from '@/supabaseClient';
+import { toast } from 'react-hot-toast';
 
 export interface Candidate {
   id: number;
@@ -57,19 +58,19 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
 
   const startGame = () => {
     if (numOfRounds === 0) {
-      alert('후보가 없어요');
+      toast('후보가 없어요');
       return;
     }
     if (!candidates) {
-      alert('후보가 없어요');
+      toast('후보가 없어요');
       return;
     }
     if (candidates!.length < 2) {
-      alert('최소 2명의 후보자가 필요합니다.');
+      toast('최소 2명의 후보자가 필요해요.');
       return;
     }
     if (numOfRounds > candidates!.length) {
-      alert(`최대 ${candidates!.length} 강전까지만 가능합니다.`);
+      toast(`최대 ${candidates!.length} 강전까지만 가능해요`);
       return;
     }
     onGameStart();

@@ -21,6 +21,7 @@ export default function Navigation({ title, href }: NavProps) {
   const { theme, setTheme } = useTheme();
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
   // 테마를 전환하기 위해 사용했다.
   const handleTheme = () => {
@@ -55,7 +56,31 @@ export default function Navigation({ title, href }: NavProps) {
       setIsVisible(false);
     }
     setLastScrollTop(currentScrollTop);
+
+    // 타임아웃 초기화
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+
+    // 새로운 타임아웃
+    setScrollTimeout(
+      setTimeout(() => {
+        if (window.pageYOffset > 0) {
+          setIsVisible(false);
+        }
+      }, 1000),
+    );
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [lastScrollTop]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -84,7 +109,7 @@ export default function Navigation({ title, href }: NavProps) {
     <>
       <header
         ref={headerRef}
-        className={`sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200 bg-white/75 backdrop-blur-lg dark:bg-gray-800/75 dark:border-gray-700 transition-opacity duration-500 ${
+        className={`sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200 bg-white/75 backdrop-blur-lg dark:bg-gray-800/75 dark:border-gray-700 transition-opacity duration-400 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
