@@ -7,14 +7,13 @@ import GameComponent from './gameComponent';
 import { supabase } from '@/supabaseClient';
 import useCandidates from '@/app/Hooks/useCandidates';
 
-//todo: candidates,TestItems 를 db에서 가져오기
-//candidates 를 TestItems랑 매칭하기
+//todo: candidates 를 TestItems랑 매칭하기
 
-export const generateStaticParams = async () => {
-  const { data: VersusItems } = await supabase.from('VersusItems').select();
+// export const generateStaticParams = async () => {
+//   const { data: VersusItems } = await supabase.from('VersusItems').select();
 
-  const { data: Candidates } = await supabase.from('Candidates').select();
-};
+//   const { data: Candidates } = await supabase.from('Candidates').select();
+// };
 
 const HomePage: React.FC = () => {
   const { candidates, isLoading, isError } = useCandidates();
