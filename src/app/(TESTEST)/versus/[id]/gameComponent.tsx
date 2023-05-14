@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ResultPage from './resultpage';
 import useCandidates from '@/app/Hooks/useCandidates';
+import { usePathname } from 'next/navigation';
+import { supabase } from '@/supabaseClient';
 
 export interface Candidate {
   id: number;
@@ -15,6 +17,7 @@ export interface Candidate {
 interface GameComponentProps {
   numOfRounds: number;
   onGameStart: () => void;
+  candidates: Candidate[];
 }
 
 interface CandidatePair {
@@ -22,8 +25,20 @@ interface CandidatePair {
   second: Candidate;
 }
 
-const GameComponent: React.FC<GameComponentProps> = ({ numOfRounds, onGameStart }) => {
-  const { candidates, isLoading, isError } = useCandidates();
+const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentProps) => {
+  const rawPathName = usePathname();
+  const pathName = rawPathName.split('/')[1];
+  // const [candidates, setCandidates] = useState(candidate);
+
+  // useEffect(() => {
+  //   async function fetchGameElement() {
+  //     const { data: candidates } = await supabase.from('Candidates').select();
+  //     setCandidates(candidates);
+  //   }
+  //   fetchGameElement();
+  // }, []);
+
+  // const { candidates, isLoading, isError } = useCandidates();
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
@@ -41,6 +56,14 @@ const GameComponent: React.FC<GameComponentProps> = ({ numOfRounds, onGameStart 
   const [winner, setWinner] = useState<Candidate | null>(candidates ? candidates[0] : null);
 
   const startGame = () => {
+    if (numOfRounds === 0) {
+      alert('후보가 없어요');
+      return;
+    }
+    if (!candidates) {
+      alert('후보가 없어요');
+      return;
+    }
     if (candidates!.length < 2) {
       alert('최소 2명의 후보자가 필요합니다.');
       return;
@@ -53,7 +76,7 @@ const GameComponent: React.FC<GameComponentProps> = ({ numOfRounds, onGameStart 
     setGameStarted(true);
     setCurrentRound(numOfRounds);
 
-    const shuffledCandidates = shuffleArray(candidates!.slice(0, numOfRounds));
+    const shuffledCandidates = shuffleArray(candidates).slice(0, numOfRounds);
     const initialPairs = createPairs(shuffledCandidates);
     setRoundPairs(initialPairs);
     setCurrentPair(initialPairs[0]);
@@ -173,7 +196,7 @@ const GameComponent: React.FC<GameComponentProps> = ({ numOfRounds, onGameStart 
                     onClick={() => handleSelection(candidate)}
                   >
                     <img className="mx-auto mb-2" src={candidate?.imageUrl} alt={candidate?.name} />
-                    <h2 className="text-center text-gray-700">{candidate.name}</h2>
+                    <h2 className="text-center text-gray-700 dark:text-white">{candidate.name}</h2>
                   </div>
                 ),
               )}

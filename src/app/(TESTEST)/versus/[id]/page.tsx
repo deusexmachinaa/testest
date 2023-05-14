@@ -6,8 +6,7 @@ import GameComponent from './gameComponent';
 // import { versusTestItems } from '@/Data/versusTeestItem';
 import { supabase } from '@/supabaseClient';
 import useCandidates from '@/app/Hooks/useCandidates';
-
-//todo: candidates 를 TestItems랑 매칭하기
+import { useParams, usePathname } from 'next/navigation';
 
 // export const generateStaticParams = async () => {
 //   const { data: VersusItems } = await supabase.from('VersusItems').select();
@@ -15,11 +14,30 @@ import useCandidates from '@/app/Hooks/useCandidates';
 //   const { data: Candidates } = await supabase.from('Candidates').select();
 // };
 
-const HomePage: React.FC = () => {
-  const { candidates, isLoading, isError } = useCandidates();
+export interface Candidate {
+  id: number;
+  imageUrl: string;
+  name: string;
+  versusItemId: number;
+  rank: number | null;
+}
+
+const HomePage = () => {
+  const pathName = useParams().id;
+  const [candidates, setCandidates] = useState(null as Candidate[] | null);
+  console.log(pathName);
+
   useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
+    async function fetchGameElement() {
+      const { data: candidates } = await supabase
+        .from('Candidates')
+        .select()
+        .eq('versusItemId', pathName);
+      setCandidates(candidates);
+    }
+    fetchGameElement();
   }, []);
+  // const filteredCandidates = candidates?.filter((candidate) => candidate.versusItemId === 1);
 
   const [numOfRounds, setNumOfRounds] = useState<number>(() => {
     let maxRound = 2 ** Math.floor(Math.log2(candidates?.length ?? 0));
@@ -61,18 +79,17 @@ const HomePage: React.FC = () => {
             </label>
             <select
               name="numOfRounds"
-              value={numOfRounds}
               onChange={handleNumOfRoundsChange}
               className="w-40 text-gray-800 bg-gray-200 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
-              {/* 원하는 강전 추가 */}
+              <option value=""> 라운드를 선택해주세요 </option>
               {renderRoundOptions()}
             </select>
           </div>
         </div>
       )}
       <GameComponent
-        // candidates={candidates}
+        candidates={candidates!}
         numOfRounds={numOfRounds}
         onGameStart={handleGameStart}
       />
