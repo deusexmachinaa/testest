@@ -58,19 +58,19 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
 
   const startGame = () => {
     if (numOfRounds === 0) {
-      toast('후보가 없어요');
+      toast.error('후보가 없어요');
       return;
     }
     if (!candidates) {
-      toast('후보가 없어요');
+      toast.error('후보가 없어요');
       return;
     }
     if (candidates!.length < 2) {
-      toast('최소 2명의 후보자가 필요해요.');
+      toast.error('최소 2명의 후보자가 필요해요.');
       return;
     }
     if (numOfRounds > candidates!.length) {
-      toast(`최대 ${candidates!.length} 강전까지만 가능해요`);
+      toast.error(`최대 ${candidates!.length} 강전까지만 가능해요`);
       return;
     }
     onGameStart();
@@ -142,7 +142,7 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
       {/* 선택한 후보를 화면 전체에 표시하는 컴포넌트 */}
       {selectedCandidate && (
         <div
-          className="fixed top-0 left-0 w-full h-full flex items-center justify-center transition-all duration-1000 ease-in"
+          className="fixed top-0 left-0 w-full h-full flex items-center justify-center transition-all duration-1000 ease-in z-50"
           style={{
             zIndex: 10,
             backgroundColor: showSelectedCandidate ? 'black' : 'transparent',
@@ -157,7 +157,7 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
             }}
           >
             <img
-              className="mx-auto mb-4 w-full h-96 object-cover object-center"
+              className="mx-auto mb-4 w-full h-[90vh] object-cover object-center"
               src={selectedCandidate.imageUrl}
               alt={selectedCandidate.name}
             />
@@ -183,7 +183,7 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
       ) : (
         <>
           {!gameEnded && (
-            <h1 className="text-center text-2xl font-semibold mb-4 text-gray-700">
+            <h1 className="text-center text-2xl font-semibold text-gray-700 dark:text-white z-10 absolute top-[15%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               {currentRound === 2 ? '결승' : currentRound + ' 강'}
             </h1>
           )}
@@ -193,11 +193,17 @@ const GameComponent = ({ numOfRounds, onGameStart, candidates }: GameComponentPr
                 (candidate: Candidate) => (
                   <div
                     key={candidate.id}
-                    className="border border-gray-300 rounded shadow-md p-4 cursor-pointer transform hover:scale-105 transition-transform"
+                    className="rounded shadow-md p-4 cursor-pointer transform hover:scale-105 transition-transform h-[90vh] dark:bg-black"
                     onClick={() => handleSelection(candidate)}
                   >
-                    <img className="mx-auto mb-2" src={candidate?.imageUrl} alt={candidate?.name} />
-                    <h2 className="text-center text-gray-700 dark:text-white">{candidate.name}</h2>
+                    <img
+                      className="mx-auto mb-2 h-full w-fit "
+                      src={candidate?.imageUrl}
+                      alt={candidate?.name}
+                    />
+                    <h2 className="text-center text-white outline-1 1px 1px text-lg z-10 absolute top-[90%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                      {candidate.name}
+                    </h2>
                   </div>
                 ),
               )}
