@@ -74,7 +74,7 @@ export default function DevLogHeader() {
       </Head>
       <header
         ref={headerRef}
-        className="top-0 left-0 w-full z-10 h-20 font-mono transition duration-500 bg-white dark:bg-[#111111]"
+        className="sticky top-0 left-0 w-full z-10 h-20 font-mono transition duration-500 bg-white dark:bg-[#111111]"
       >
         <div className="text-black max-w-screen-md h-20 flex flex-nowrap items-center justify-between m-auto px-8">
           <Link href="/">
