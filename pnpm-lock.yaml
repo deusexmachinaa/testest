@@ -3,13 +3,13 @@ lockfileVersion: '6.0'
 dependencies:
   '@supabase/auth-helpers-nextjs':
     specifier: ^0.6.1
-    version: 0.6.1(@supabase/supabase-js@2.21.0)
+    version: 0.6.1(@supabase/supabase-js@2.22.0)
   '@supabase/auth-helpers-react':
     specifier: ^0.3.1
-    version: 0.3.1(@supabase/supabase-js@2.21.0)
+    version: 0.3.1(@supabase/supabase-js@2.22.0)
   '@supabase/supabase-js':
-    specifier: ^2.21.0
-    version: 2.21.0
+    specifier: ^2.22.0
+    version: 2.22.0
   '@tanstack/react-query':
     specifier: ^4.29.7
     version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
@@ -2603,29 +2603,29 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.21.0):
+  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.22.0):
     resolution: {integrity: sha512-ffDAR4pW2Cosj/CuuGRAhzOFfHtqzdgax7zqRGGyq334gxxPplsmJFGaLPRJ3Z/4mTSIJHyFd6LYdHMN0a+5Bw==}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.4
     dependencies:
-      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.21.0)
-      '@supabase/supabase-js': 2.21.0
+      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.22.0)
+      '@supabase/supabase-js': 2.22.0
     dev: false
 
-  /@supabase/auth-helpers-react@0.3.1(@supabase/supabase-js@2.21.0):
+  /@supabase/auth-helpers-react@0.3.1(@supabase/supabase-js@2.22.0):
     resolution: {integrity: sha512-g3SFv08Dz9FapNif/ZY1b7qKGlMJDyTLSayHBz3kb3FuYxg7aLWgQtydDhm5AGbc0XtvpIBuhGTIOVevwpdosA==}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.4
     dependencies:
-      '@supabase/supabase-js': 2.21.0
+      '@supabase/supabase-js': 2.22.0
     dev: false
 
-  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.21.0):
+  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.22.0):
     resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.4
     dependencies:
-      '@supabase/supabase-js': 2.21.0
+      '@supabase/supabase-js': 2.22.0
       jose: 4.14.4
     dev: false
 
@@ -2671,8 +2671,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/supabase-js@2.21.0:
-    resolution: {integrity: sha512-FW3ZzBoc4orSgfX0dXrmJoXAcI/hiekmqXTkN64vjtUF2Urp3UjyAf71UTtV9Jl6ejHoe3K++e0+Rg9zKUJh5w==}
+  /@supabase/supabase-js@2.22.0:
+    resolution: {integrity: sha512-omkgSWL1HwnpXZZy+yshFLx/qqxwk9kx9jbRM6IHNEylKrH/sz6JX7rGyIOmN9niDxMRjsCu1nwuBhD6IiF2xg==}
     dependencies:
       '@supabase/functions-js': 2.1.1
       '@supabase/gotrue-js': 2.26.0
@@ -3063,8 +3063,8 @@ packages:
       '@typescript-eslint/types': 5.59.5
       eslint-visitor-keys: 3.4.1
 
-  /@vanilla-extract/babel-plugin-debug-ids@1.0.2:
-    resolution: {integrity: sha512-LjnbQWGeMwaydmovx8jWUR8BxLtLiPyq0xz5C8G5OvFhsuJxvavLdrBHNNizvr1dq7/3qZGlPv0znsvU4P44YA==}
+  /@vanilla-extract/babel-plugin-debug-ids@1.0.3:
+    resolution: {integrity: sha512-vm4jYu1xhSa6ofQ9AhIpR3DkAp4c+eoR1Rpm8/TQI4DmWbmGbOjYRcqV0aWsfaIlNhN4kFuxFMKBNN9oG6iRzA==}
     dependencies:
       '@babel/core': 7.21.8
     transitivePeerDependencies:
@@ -3092,7 +3092,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.8
       '@babel/plugin-syntax-typescript': 7.21.4(@babel/core@7.21.8)
-      '@vanilla-extract/babel-plugin-debug-ids': 1.0.2
+      '@vanilla-extract/babel-plugin-debug-ids': 1.0.3
       '@vanilla-extract/css': 1.11.0
       esbuild: 0.17.6
       eval: 0.1.6
