@@ -8,7 +8,7 @@ export const QueryLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      <Toaster />
+      <Toaster toastOptions={{ duration: 1000 }} />
     </>
   );
 };
