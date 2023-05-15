@@ -1,23 +1,55 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useQRCode } from 'next-qrcode';
 import { toast } from 'react-hot-toast';
 
+const DEFAULT_OPTIONS = {
+  level: 'M',
+  margin: 3,
+  scale: 4,
+  width: 200,
+  color: {
+    dark: '#000000FF',
+    light: '#FFFFFFFF',
+  },
+};
+
 function QRCodePage() {
   const [text, setText] = useState('https://fortunegpt.cc');
-  const [options, setOptions] = useState({
-    level: 'H',
-    margin: 4,
-    scale: 10,
-    width: 200,
-    color: {
-      dark: '#000000FF',
-      light: '#FFFFFFFF',
-    },
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
+  const [colors, setColors] = useState({
+    dark: options.color.dark,
+    light: options.color.light,
   });
+
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let debounceTimer: NodeJS.Timeout;
+    return function (...args: any[]) {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+      debounceTimer = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  //디바운서로 색상 변경
+  const debouncedSetColor = useMemo(
+    () =>
+      debounce((colorType: 'dark' | 'light', colorValue: string) => {
+        setColors((prev) => ({ ...prev, [colorType]: colorValue }));
+      }, 20),
+    [],
+  );
+
+  useEffect(() => {
+    setOptions((prev) => ({ ...prev, color: colors }));
+  }, [colors]);
+
   const { Canvas } = useQRCode();
   const [imageDataUrl, setImageDataUrl] = useState('');
+  const [debouncedSetOptions, setDebouncedSetOptions] = useState(() => debounce(setOptions, 250));
 
+  //기본값으로 생성하는 url
   useEffect(() => {
     if (text) {
       const canvas = document.getElementsByTagName('canvas')[0];
@@ -26,6 +58,24 @@ function QRCodePage() {
       }
     }
   }, [text, options]);
+
+  //초기값 설정
+  useEffect(() => {
+    const savedOptions = localStorage.getItem('options');
+    if (savedOptions) {
+      setOptions(JSON.parse(savedOptions));
+    }
+  }, []);
+
+  //로컬 스토리지에 옵션저장
+  useEffect(() => {
+    localStorage.setItem('options', JSON.stringify(options));
+  }, [options]);
+
+  //설정리셋
+  const handleResetColors = () => {
+    debouncedSetOptions(DEFAULT_OPTIONS);
+  };
 
   const handleCopyAndDownload = async () => {
     if (imageDataUrl) {
@@ -40,11 +90,11 @@ function QRCodePage() {
             [blob.type]: blob,
           }),
         ]);
-        toast('클립보드에 복사했어요✔');
+        toast.success('클립보드에 복사했어요');
       } catch (err) {
         // If image copy fails, copy the URL text instead
         navigator.clipboard.writeText(text);
-        toast('클립보드에 복사했어요✔');
+        toast.success('클립보드에 복사했어요');
       }
 
       // Download
@@ -77,9 +127,7 @@ function QRCodePage() {
             <input
               type="color"
               value={options.color.dark}
-              onChange={(e) =>
-                setOptions((prev) => ({ ...prev, color: { ...prev.color, dark: e.target.value } }))
-              }
+              onChange={(e) => debouncedSetColor('dark', e.target.value)}
               className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
@@ -88,9 +136,7 @@ function QRCodePage() {
             <input
               type="color"
               value={options.color.light}
-              onChange={(e) =>
-                setOptions((prev) => ({ ...prev, color: { ...prev.color, light: e.target.value } }))
-              }
+              onChange={(e) => debouncedSetColor('light', e.target.value)}
               className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
@@ -120,7 +166,13 @@ function QRCodePage() {
             className="border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white w-full"
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-between">
+          <button
+            onClick={handleResetColors}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Reset
+          </button>
           <button
             type="button"
             onClick={handleCopyAndDownload}
