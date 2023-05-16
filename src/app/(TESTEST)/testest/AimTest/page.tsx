@@ -5,8 +5,7 @@ const AimTest = () => {
   const [totalTime, setTotalTime] = useState(0 as number);
   const [attempts, setAttempts] = useState(0);
   const [gameArea, setGameArea] = useState({ width: 0, height: 0 });
-  const [lastClickTime, setLastClickTime] = useState(0);
-  const [clicked, setClicked] = useState(false);
+  const [reactionTime, setReactionTime] = useState(0);
   const [totalAttempts, setTotalAttempts] = useState(30); // totalAttempts 상태 추가
   const [targetSize, setTargetSize] = useState(50);
   const [isGaming, setIsGaming] = useState(false); // gameStatus 상태 추가
@@ -14,8 +13,7 @@ const AimTest = () => {
   const [targets, setTargets] = useState([{ id: 0, position: { x: 0, y: 0 } }]);
   const [activeTarget, setActiveTarget] = useState<number | null>(null);
 
-  const timerRef = useRef(0);
-  const lastClickRef = useRef(performance.now());
+  const timeRef = useRef(0);
 
   function playBeep(hz: number) {
     const audioContext = new window.AudioContext();
@@ -61,12 +59,14 @@ const AimTest = () => {
 
   const handleClick = (id: number) => {
     const currentTime = performance.now();
-    const elapsedTime = currentTime - timerRef.current;
-    timerRef.current = currentTime; // Update the timer for the next click
-    setLastClickTime(elapsedTime);
+    const elapsedTime = currentTime - timeRef.current;
+    timeRef.current = currentTime; // Update the timer for the next click
+    setReactionTime(elapsedTime);
     muted ? null : playBeep(elapsedTime);
     setTargets(targets.slice(1));
     setActiveTarget(targets[1]?.id || null);
+    setTotalTime((time) => time + elapsedTime);
+    setAttempts((count) => count + 1);
   };
 
   const generateTargets = () => {
@@ -77,13 +77,13 @@ const AimTest = () => {
     });
     setTargets(newTargets);
     setActiveTarget(newTargets[0].id);
-    timerRef.current = performance.now();
+    timeRef.current = performance.now();
   };
 
   const resetGameState = () => {
     setAttempts(0);
     setTotalTime(0);
-    setLastClickTime(0);
+    setReactionTime(0);
     setActiveTarget(null);
   };
 
@@ -130,7 +130,7 @@ const AimTest = () => {
           </div>
         ) : isGaming && attempts < totalAttempts ? (
           <>
-            <p>반응 속도: {lastClickTime} ms</p>
+            <p>반응 속도: {reactionTime.toFixed(2)} ms</p>
             {targets.map((target) =>
               target.id === activeTarget ? (
                 <div
@@ -139,19 +139,21 @@ const AimTest = () => {
                     position: 'absolute',
                     width: `${targetSize}px`,
                     height: `${targetSize}px`,
-                    backgroundColor: 'red',
+                    background: `radial-gradient(
+                      red ${targetSize * 0.05}px, transparent 0,
+                      transparent ${targetSize * 0.15}px, red 0,
+                      red ${targetSize * 0.25}px, transparent 0,
+                      transparent ${targetSize * 0.35}px, red 0,
+                      red ${targetSize * 0.45}px, transparent 0
+                    )`,
                     borderRadius: '50%',
-                    cursor: 'pointer',
+                    cursor: 'crosshair',
                     top: `${target.position.y}px`,
                     left: `${target.position.x}px`,
-                    opacity: clicked ? 0 : 1,
-                    transition: 'opacity 0.5s',
                     zIndex: 30,
                   }}
                   onClick={() => handleClick(target.id)}
-                >
-                  {target.id}
-                </div>
+                />
               ) : null,
             )}
           </>
@@ -161,7 +163,7 @@ const AimTest = () => {
             <button
               onClick={() => {
                 resetGameState();
-                // generateNewPosition();
+                generateTargets();
               }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
