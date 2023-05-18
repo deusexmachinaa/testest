@@ -1,31 +1,23 @@
 import { Post, allPosts } from 'contentlayer/generated';
 import Image from 'next/image';
 import DevLogPostList from '@/components/DevLogPostList';
-import Selfie from '/public/images/Selfie.jpg'
+import Selfie from '/public/images/Selfie.jpg';
 import { compareDesc } from 'date-fns';
 
 export default function Home() {
-  const posts = allPosts.sort((a, b) =>
-  compareDesc(new Date(a.date), new Date(b.date))
-);
+  const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
   return (
     <>
       <section className="my-10">
         <h1 className="font-bold text-2xl sm:text-4xl font-mono">🧑🏻‍💻 Taehun</h1>
       </section>
       <section className="flex justify-center gap-20 items-center flex-wrap">
-        <Image
-          src={Selfie}
-          alt="profile"
-          width={300}
-          height={300}
-          className="rounded-2xl"
-        />
+        <Image src={Selfie} alt="profile" width={300} height={300} className="rounded-2xl" />
         <div className="min-w-[250] max-w-[300px]">
           <h2 className="font-bold text-xl">안녕하세요</h2>
           <br />
           <p>이것저것 만들고 있습니다.</p>
-          <p>현재 무직 백수</p>
+          <p>구직합니다. 열심히 일합니다.</p>
           <div className="flex gap-5 items-center mt-4">
             <a
               href="mailto:gjfzml@gmail.com"
