@@ -10,7 +10,7 @@ export default function ResultPage({ winner }: ResultPageProps) {
       <h1 className="text-center text-4xl font-semibold mb-8">{winner?.name}👏</h1>
       <div className="text-center">
         <img
-          className="mx-auto mb-4 w-full h-full object-cover object-center"
+          className="mx-auto mb-4 w-fit h-[80vh] object-cover object-center"
           src={winner?.imageUrl}
           alt={winner?.name}
         />
