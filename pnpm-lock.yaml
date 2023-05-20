@@ -30,7 +30,7 @@ dependencies:
     version: 10.4.14(postcss@8.4.23)
   contentlayer:
     specifier: ^0.3.2
-    version: 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
+    version: 0.3.2(esbuild@0.17.19)
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -54,7 +54,7 @@ dependencies:
     version: 13.4.1(@babel/core@7.21.8)(@opentelemetry/api@1.4.1)(react-dom@18.2.0)(react@18.2.0)
   next-contentlayer:
     specifier: ^0.3.2
-    version: 0.3.2(esbuild@0.17.19)(next@13.4.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)
+    version: 0.3.2(esbuild@0.17.19)(next@13.4.1)(react-dom@18.2.0)(react@18.2.0)
   next-qrcode:
     specifier: ^2.4.1
     version: 2.4.1(react@18.2.0)
@@ -1337,11 +1337,11 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
-  /@contentlayer/cli@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /@contentlayer/cli@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-KLzB2z3Klbl4bU7VTJ8EaY1d17GCBFtwgvtNAVLOqUJ4LRw46+jT+qBMk8gyy7R1xDNF2H1a/yGYs8t8rlFVmg==}
     dependencies:
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/utils': 0.3.2
       clipanion: 3.2.0(typanion@3.12.1)
       typanion: 3.12.1
     transitivePeerDependencies:
@@ -1349,22 +1349,20 @@ packages:
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
-  /@contentlayer/client@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /@contentlayer/client@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-5m7IFd0Z8qRBAOnAYwWcf/SFe1SmtHmeV1kO4pldEuD8J/5sxKeefdGHLNnH3sxlGfeJhEdDnymJtppg8v0D8w==}
     dependencies:
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
-  /@contentlayer/core@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /@contentlayer/core@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-5ZLzS3s4Lp5Tlw+U4kUUK9frYmi8sc970spJSvLSxtOTDHDE7xemGT9HSj0V4DcmIkY9TT7pCmMFRfpEv7IC6Q==}
     peerDependencies:
       esbuild: 0.17.x
@@ -1375,7 +1373,7 @@ packages:
       markdown-wasm:
         optional: true
     dependencies:
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/utils': 0.3.2
       camel-case: 4.1.2
       comment-json: 4.2.3
       esbuild: 0.17.19
@@ -1386,19 +1384,18 @@ packages:
       remark-parse: 10.0.2
       remark-rehype: 10.1.0
       source-map-support: 0.5.21
-      type-fest: 3.10.0(typescript@5.0.4)
+      type-fest: 3.11.0
       unified: 10.1.2
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - supports-color
-      - typescript
     dev: false
 
-  /@contentlayer/source-files@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /@contentlayer/source-files@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-VYUaUbT3Hg3fSEEKpjDdfGEkw4bl4BaLHJWf5sulrkBtjdyNJ3RwUdnsqN3i+bibhcYF4ZvnFme4xtHBuEChmw==}
     dependencies:
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/utils': 0.3.2
       chokidar: 3.5.3
       fast-glob: 3.2.12
       gray-matter: 4.0.3
@@ -1413,24 +1410,22 @@ packages:
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
-  /@contentlayer/source-remote-files@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /@contentlayer/source-remote-files@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-BuABBHemn/UzhARsQh2XH13VUeb5HoRI3NkJeCGEMSnstzI72Dcc6krELwG3cTFYmgb95TV8NuIZKcrz8IsX6A==}
     dependencies:
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/source-files': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/source-files': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/utils': 0.3.2
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
-  /@contentlayer/utils@0.3.2(typescript@5.0.4):
+  /@contentlayer/utils@0.3.2:
     resolution: {integrity: sha512-qQdL3PN3zKl7monHe3EXlXgq7/raApWWJ7+2n0C81ESiwdM1ZFuHU+pOIkl5JWhotTkqAqYdSvFuM+MAXF8XFg==}
     peerDependencies:
       '@effect-ts/otel-node': '*'
@@ -1460,9 +1455,7 @@ packages:
       memfs: 3.5.1
       oo-ascii-tree: 1.81.0
       ts-pattern: 4.3.0
-      type-fest: 3.10.0(typescript@5.0.4)
-    transitivePeerDependencies:
-      - typescript
+      type-fest: 3.11.0
     dev: false
 
   /@cspotcode/source-map-support@0.8.1:
@@ -2130,7 +2123,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.5.1
       tar: 6.1.15
     transitivePeerDependencies:
       - encoding
@@ -4104,24 +4097,23 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /contentlayer@0.3.2(esbuild@0.17.19)(typescript@5.0.4):
+  /contentlayer@0.3.2(esbuild@0.17.19):
     resolution: {integrity: sha512-fQN3l/KvUW+nIvXiaShpOCvXX4alNbvfo56vnVxHVm6vKP10bb/IRhjMXPXZzr+5hmCaeep9wMpCAvOKB6NJHA==}
     engines: {node: '>=14.18'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@contentlayer/cli': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/client': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/source-files': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/source-remote-files': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/cli': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/client': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/source-files': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/source-remote-files': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/utils': 0.3.2
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
   /convert-hrtime@3.0.0:
@@ -4151,7 +4143,7 @@ packages:
     resolution: {integrity: sha512-MaQ9FwzlZ/KLeVCLhzI3rZw0EhrIryfZa3AyT4agVybR0DjlkDHA8898lamLD6kfkf9MMn8D+zDAUR4+GxaymQ==}
     engines: {node: '>=12.13'}
     dependencies:
-      is-what: 4.1.9
+      is-what: 4.1.10
     dev: false
 
   /core-js-compat@3.30.2:
@@ -6524,8 +6516,8 @@ packages:
       get-intrinsic: 1.2.1
     dev: false
 
-  /is-what@4.1.9:
-    resolution: {integrity: sha512-I3FU0rkVvwhgLLEs6iITwZ/JaLXe7tQcHyzupXky8jigt1vu4KM0UOqDr963j36JRvJ835EATVIm6MnGz/i1/g==}
+  /is-what@4.1.10:
+    resolution: {integrity: sha512-JBy26nXqBUwzTfgj6T5Y/UgXSmRd+03FTq5v3P+N1cOmOtI1hz7dBn+ZfqM7c86qqWTNBEH98h3pkpmI6USnQA==}
     engines: {node: '>=12.13'}
     dev: false
 
@@ -6821,7 +6813,7 @@ packages:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
     dependencies:
-      semver: 6.3.0
+      semver: 6.1.1
     dev: false
 
   /make-error@1.3.6:
@@ -7499,15 +7491,15 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /next-contentlayer@0.3.2(esbuild@0.17.19)(next@13.4.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4):
+  /next-contentlayer@0.3.2(esbuild@0.17.19)(next@13.4.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pihb/VtBq30eV+WpaWakWVtA1DWKzfXeaL7l/vR4MvrTO8UtZaX9H6wY0oSOqrmy674BRjXiQ03PbEOE5D6/iA==}
     peerDependencies:
       next: ^12 || ^13
       react: '*'
       react-dom: '*'
     dependencies:
-      '@contentlayer/core': 0.3.2(esbuild@0.17.19)(typescript@5.0.4)
-      '@contentlayer/utils': 0.3.2(typescript@5.0.4)
+      '@contentlayer/core': 0.3.2(esbuild@0.17.19)
+      '@contentlayer/utils': 0.3.2
       next: 13.4.1(@babel/core@7.21.8)(@opentelemetry/api@1.4.1)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -7516,7 +7508,6 @@ packages:
       - esbuild
       - markdown-wasm
       - supports-color
-      - typescript
     dev: false
 
   /next-qrcode@2.4.1(react@18.2.0):
@@ -9470,13 +9461,9 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /type-fest@3.10.0(typescript@5.0.4):
-    resolution: {integrity: sha512-hmAPf1datm+gt3c2mvu0sJyhFy6lTkIGf0GzyaZWxRLnabQfPUqg6tF95RPg6sLxKI7nFLGdFxBcf2/7+GXI+A==}
+  /type-fest@3.11.0:
+    resolution: {integrity: sha512-JaPw5U9ixP0XcpUbQoVSbxSDcK/K4nww20C3kjm9yE6cDRRhptU28AH60VWf9ltXmCrIfIbtt9J+2OUk2Uqiaw==}
     engines: {node: '>=14.16'}
-    peerDependencies:
-      typescript: '>=4.7.0'
-    dependencies:
-      typescript: 5.0.4
     dev: false
 
   /type-is@1.6.18:
