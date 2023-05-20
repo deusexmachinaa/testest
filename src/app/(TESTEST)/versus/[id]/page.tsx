@@ -2,17 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import GameComponent from './gameComponent';
-// import { candidates } from '../../../../Data/dummyData';
-// import { versusTestItems } from '@/Data/versusTeestItem';
 import { supabase } from '@/supabaseClient';
-import useCandidates from '@/app/Hooks/useCandidates';
 import { useParams, usePathname } from 'next/navigation';
-
-// export const generateStaticParams = async () => {
-//   const { data: VersusItems } = await supabase.from('VersusItems').select();
-
-//   const { data: Candidates } = await supabase.from('Candidates').select();
-// };
 
 export interface Candidate {
   id: number;
