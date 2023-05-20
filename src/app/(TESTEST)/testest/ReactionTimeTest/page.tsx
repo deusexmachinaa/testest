@@ -130,7 +130,6 @@ export default function ReactionTest() {
         )}
         {renderAverage()}
       </div>
-      <Description />
     </>
   );
 }

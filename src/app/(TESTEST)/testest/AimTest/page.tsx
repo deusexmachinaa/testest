@@ -213,8 +213,6 @@ const AimTest = () => {
           </div>
         </div>
       </div>
-      {/* @ts-expect-error */}
-      <Description />
     </>
   );
 };
