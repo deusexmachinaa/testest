@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Description from './Desciption';
 
 export default function ReactionTest() {
   const [status, setStatus] = useState<'waiting' | 'ready' | 'clicked' | 'record'>('waiting');
@@ -129,6 +130,7 @@ export default function ReactionTest() {
         )}
         {renderAverage()}
       </div>
+      <Description />
     </>
   );
 }

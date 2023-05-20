@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import Description from './Desciption';
 
 const AimTest = () => {
   const [totalTime, setTotalTime] = useState(0 as number);
@@ -90,127 +91,131 @@ const AimTest = () => {
   const averageTime = attempts ? totalTime / attempts : 0;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <div
-        className="relative bg-white cursor-crosshair"
-        style={{ width: `${gameArea.width}px`, height: `${gameArea.height}px` }}
-      >
-        {!isGaming ? (
-          <div className="flex flex-col items-center justify-center h-full">
-            <div className="mb-2 flex flex-col py-4">
-              <label>Total Attempts: {totalAttempts}</label>
-              <input
-                type="range"
-                min="1"
-                max="100"
-                value={totalAttempts}
-                onChange={(e) => setTotalAttempts(Number(e.target.value))}
-              />
+    <>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div
+          className="relative bg-white cursor-crosshair"
+          style={{ width: `${gameArea.width}px`, height: `${gameArea.height}px` }}
+        >
+          {!isGaming ? (
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="mb-2 flex flex-col py-4">
+                <label>Total Attempts: {totalAttempts}</label>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value={totalAttempts}
+                  onChange={(e) => setTotalAttempts(Number(e.target.value))}
+                />
+              </div>
+              <div className="mb-2 flex flex-col py-4 ">
+                <label>Target Size: {targetSize}px</label>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  value={targetSize}
+                  onChange={(e) => setTargetSize(Number(e.target.value))}
+                />
+              </div>
+              <button
+                onClick={() => {
+                  setIsGaming(true);
+                  resetGameState(); //혹시몰라서
+                  generateTargets();
+                }}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Start Game
+              </button>
             </div>
-            <div className="mb-2 flex flex-col py-4 ">
-              <label>Target Size: {targetSize}px</label>
-              <input
-                type="range"
-                min="10"
-                max="100"
-                value={targetSize}
-                onChange={(e) => setTargetSize(Number(e.target.value))}
-              />
-            </div>
-            <button
-              onClick={() => {
-                setIsGaming(true);
-                resetGameState(); //혹시몰라서
-                generateTargets();
-              }}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Start Game
-            </button>
-          </div>
-        ) : isGaming && attempts < totalAttempts ? (
-          <>
-            <p>반응 속도: {reactionTime.toFixed(2)} ms</p>
-            {targets.map((target) =>
-              target.id === activeTarget ? (
-                <div
-                  key={target.id}
-                  style={{
-                    position: 'absolute',
-                    width: `${targetSize}px`,
-                    height: `${targetSize}px`,
-                    background: `radial-gradient(
+          ) : isGaming && attempts < totalAttempts ? (
+            <>
+              <p>반응 속도: {reactionTime.toFixed(2)} ms</p>
+              {targets.map((target) =>
+                target.id === activeTarget ? (
+                  <div
+                    key={target.id}
+                    style={{
+                      position: 'absolute',
+                      width: `${targetSize}px`,
+                      height: `${targetSize}px`,
+                      background: `radial-gradient(
                       red ${targetSize * 0.05}px, transparent 0,
                       transparent ${targetSize * 0.15}px, red 0,
                       red ${targetSize * 0.25}px, transparent 0,
                       transparent ${targetSize * 0.35}px, red 0,
                       red ${targetSize * 0.45}px, transparent 0
                     )`,
-                    borderRadius: '50%',
-                    cursor: 'crosshair',
-                    top: `${target.position.y}px`,
-                    left: `${target.position.x}px`,
-                    zIndex: 30,
+                      borderRadius: '50%',
+                      cursor: 'crosshair',
+                      top: `${target.position.y}px`,
+                      left: `${target.position.x}px`,
+                      zIndex: 30,
+                    }}
+                    onClick={() => handleClick(target.id)}
+                  />
+                ) : null,
+              )}
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full">
+              <p className="py-4">평균 반응 속도: {averageTime.toFixed(2)} ms</p>
+              <button
+                onClick={() => {
+                  resetGameState();
+                  generateTargets();
+                }}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Try again
+              </button>
+              <div className="py-4">
+                <button
+                  onClick={() => {
+                    setIsGaming(false);
+                    resetGameState();
                   }}
-                  onClick={() => handleClick(target.id)}
-                />
-              ) : null,
-            )}
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-full">
-            <p className="py-4">평균 반응 속도: {averageTime.toFixed(2)} ms</p>
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  HOME
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="absolute top-0 right-0 p-2 flex space-x-2">
             <button
               onClick={() => {
+                setIsGaming(false);
+                resetGameState();
+              }}
+              className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
+            >
+              ←{/* 뒤로가기 아이콘 */}
+            </button>
+            <button
+              onClick={() => {
+                //setIsGaming(false);
                 resetGameState();
                 generateTargets();
               }}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
             >
-              Try again
+              &#x21bb;{/* 다시하기 아이콘 */}
             </button>
-            <div className="py-4">
-              <button
-                onClick={() => {
-                  setIsGaming(false);
-                  resetGameState();
-                }}
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              >
-                HOME
-              </button>
-            </div>
+            <button
+              onClick={() => setMuted(!muted)}
+              className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
+            >
+              {muted ? '🔇' : '🔊'}
+            </button>
           </div>
-        )}
-        <div className="absolute top-0 right-0 p-2 flex space-x-2">
-          <button
-            onClick={() => {
-              setIsGaming(false);
-              resetGameState();
-            }}
-            className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
-          >
-            ←{/* 뒤로가기 아이콘 */}
-          </button>
-          <button
-            onClick={() => {
-              //setIsGaming(false);
-              resetGameState();
-              generateTargets();
-            }}
-            className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
-          >
-            &#x21bb;{/* 다시하기 아이콘 */}
-          </button>
-          <button
-            onClick={() => setMuted(!muted)}
-            className=" bg-opacity-50 hover:scale-125 p-2 rounded-full"
-          >
-            {muted ? '🔇' : '🔊'}
-          </button>
         </div>
       </div>
-    </div>
+      {/* @ts-expect-error */}
+      <Description />
+    </>
   );
 };
 

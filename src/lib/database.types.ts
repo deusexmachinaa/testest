@@ -78,6 +78,23 @@ export interface Database {
           title?: string;
         };
       };
+      TestDescriptionItems: {
+        Row: {
+          Description: string | null;
+          id: number;
+          TestItemId: number | null;
+        };
+        Insert: {
+          Description?: string | null;
+          id?: number;
+          TestItemId?: number | null;
+        };
+        Update: {
+          Description?: string | null;
+          id?: number;
+          TestItemId?: number | null;
+        };
+      };
       TestItems: {
         Row: {
           Description: string | null;
