@@ -1,0 +1,107 @@
+---
+title: 18일차
+date: 2023-05-23
+description: 김프 프로젝트 대충 완료
+---
+
+일단은 김프 프로젝트를 대충 완료했다.
+
+일어나서 확인해보니 dark모드가 살짝 이상하게 적용 되어있어가지고 수정했다.
+
+tailwind css 문제였는데 거 모듈에 설정 좀 바꿔주고 provider에 속성좀 바꿔줬다.
+
+```
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class'
+}
+```
+
+```
+// app/page.tsx
+<ThemeProvider attribute="class">
+```
+
+이렇게 해서 잘 적용해주었고..
+
+에드센스 신청했고, 검색창도 만들었다.
+
+초성까지 검색 가능하다.
+
+<br />이 부분을 조금 소개하자면,
+
+```
+export default function getChosungs(word: string) {
+  const cho = [
+    "ㄱ",
+    "ㄲ",
+    "ㄴ",
+    "ㄷ",
+    "ㄸ",
+    "ㄹ",
+    "ㅁ",
+    "ㅂ",
+    "ㅃ",
+    "ㅅ",
+    "ㅆ",
+    "ㅇ",
+    "ㅈ",
+    "ㅉ",
+    "ㅊ",
+    "ㅋ",
+    "ㅌ",
+    "ㅍ",
+    "ㅎ",
+  ];
+  let chosungs = "";
+  for (let i = 0; i < word.length; i++) {
+    let char = word[i];
+    let code = char.charCodeAt(0) - 44032;
+    if (code > -1 && code < 11172) {
+      chosungs += cho[Math.floor(code / 588)];
+    } else {
+      chosungs += char;
+    }
+  }
+  return chosungs;
+}
+```
+
+그냥 이렇게 처리했다.
+
+이게 혼자 하다보니까 단점이 .. 이게 맞는지 틀린지 알방법이 없어서
+
+그냥 잘 작동하면 넘어가게 된다.
+
+```
+  const filteredData = tableData.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      getChosungs(item.name).includes(searchTerm.toLowerCase())
+  );
+```
+
+<br />
+
+그래서 이렇게 처리하고 넘어갔다..
+
+<br />
+
+이렇게 검색까지 구현을 해주고 , 이제 얼추 마무리 된거같아서
+
+에드센스 결과만 보면서 조금씩 수정하기로 했다.
+
+<br />
+
+이제 RN 쪽을 좀 해보려고하는데 expo가 장단이 좀 많이 있는거같아서
+
+우선 expo를 조금 사용해 보고 알아 가려한다.
+
+<br />
+
+그리고 워드프레스도 조금 다뤄봐야하는데..
+
+이것도 최대한 빠른 시일내로 해볼예정이다.
+
+끝.
