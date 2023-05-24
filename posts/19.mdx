@@ -1,0 +1,63 @@
+---
+title: 19일차
+date: 2023-05-24
+description: 광고붙이기~
+---
+
+에드센스에 등록했다. (심사중)
+
+하는김에 도메인도 사서 kimp.site로 바꿨다.
+
+https://www.kimp.site/
+
+멋있다.
+
+<br />
+
+사이트가 너무 밋밋한거 같아서 로고이름에 귀여운 효과도 넣었다.
+
+```
+const handleMouseOver = useCallback((event: React.MouseEvent) => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let interval: NodeJS.Timeout | null = null;
+    let iteration = 0;
+
+    interval = setInterval(() => {
+      const titleElement = event.target as HTMLElement;
+
+      titleElement.innerText = titleElement.innerText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return titleElement.getAttribute("data-value")?.[index] || "";
+          }
+
+          return letters[Math.floor(Math.random() * 26)];
+        })
+        .join("");
+
+      if (iteration >= (titleElement.getAttribute("data-value") || "").length) {
+        clearInterval(interval as NodeJS.Timeout);
+      }
+
+      iteration += 1 / 3;
+    }, 30);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, []);
+
+```
+
+뭐 이런 효과인데 그냥 onMouseOver에 넣어놨다.
+
+<br />
+
+귀엽다.
+
+채팅창도 붙이면 좋을거같다.
+
+김프가는 firebase 쓰고있던데 나는 고민좀 해봐야겠다.
